@@ -13,13 +13,7 @@ function love.keypressed(key, isrepeat)
     -- launch game
     if key == "return" and state == "title" then
         state = "game"
-        -- return to default values
-        p1.x
-        b1.x
-        b1.y
-        scoreVal
-        hiScoreVal
-        levelVal
+        init()
     end
 end
 
@@ -35,6 +29,7 @@ function love.draw()
     if state == "title" then
         love.graphics.print("PLACEHOLDER TEXT", scoreFont, 225, 220)
         love.graphics.print("Press Enter to play", w95fa, 260, 260)
+        love.graphics.print("- incomplete -", debugFont, 285, 455)
     elseif state == "game" then
         require("lua.ui")
         require("lua.collision")

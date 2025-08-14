@@ -46,6 +46,16 @@ hiScoreVal = 0
 -- level
 levelVal = 1
 
+function init()
+    p1.x = 285
+    p1.y = 420
+    b1.x = 326
+    b1.y = 413
+    scoreVal = 0
+    hiScoreVal = 0
+    levelVal = 1
+end
+
 -- color
 uiSubText = {
     0.5,

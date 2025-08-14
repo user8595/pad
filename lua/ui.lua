@@ -1,6 +1,7 @@
 function ui()
     -- ui
     -- board left
+    --TODO:Fix misaligned board position
     love.graphics.setColor(uiColor)
     love.graphics.line(142, 110, 46, 110)
     love.graphics.setColor(uiColor)
