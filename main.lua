@@ -1,5 +1,6 @@
 function love.load()
     require("lua.defaults")
+    require("lua.collision")
 end
 
 function love.update(dt)
