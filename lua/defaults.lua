@@ -6,14 +6,14 @@ debugFont = love.graphics.newFont("/assets/W95FA.OTF", 14)
 -- border height
 border = (love.graphics.getWidth() / 2) / 2.25
 
-borderL = {
+bL = {
     x1 = 142,
     y1 = 0,
     x2 = 142,
     y2 = love.graphics.getHeight()
 }
 
-borderR = {
+bR = {
     x1 = 484,
     y1 = 0,
     x2 = 484,

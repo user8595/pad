@@ -33,13 +33,13 @@ function love.draw()
     love.graphics.setColor(uiColor)
     love.graphics.line(142, 110, 46, 110)
     love.graphics.setColor(uiColor)
-    love.graphics.line(borderL.x1, borderL.y1, borderL.x2, borderL.y2)
+    love.graphics.line(bL.x1, bL.y1, bL.x2, bL.y2)
     
     -- board right
     love.graphics.setColor(uiColor)
     love.graphics.line(484, 110, 580, 110)
     love.graphics.setColor(uiColor)
-    love.graphics.line(borderR.x1, borderR.y1, borderR.x2, borderR.y2)
+    love.graphics.line(bR.x1, bR.y1, bR.x2, bR.y2)
     
     -- ui
     -- score
