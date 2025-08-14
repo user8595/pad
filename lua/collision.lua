@@ -1,5 +1,5 @@
 require("lua.defaults")
-local bump = require("lua.bump.bump")
+local bump = require("lua.bump")
 
 -- hitbox names
 local pad = {name="pad"}
