@@ -6,6 +6,7 @@ debugFont = love.graphics.newFont("/assets/W95FA.OTF", 14)
 -- border height
 border = (love.graphics.getWidth() / 2) / 2.25
 
+-- left
 bL = {
     x1 = 142,
     y1 = 0,
@@ -13,6 +14,7 @@ bL = {
     y2 = love.graphics.getHeight()
 }
 
+-- right
 bR = {
     x1 = 484,
     y1 = 0,
@@ -28,6 +30,7 @@ p1 = {
     height = 10
 }
 
+-- ball
 b1 = {
     x = 326,
     y = 413,
