@@ -1,22 +1,6 @@
 require("lua.defaults")
 local bump = require("lua.bump")
 
--- movement function
-function love.update(dt)
-    if love.keyboard.isDown("a") then
-        p1.x = p1.x - 7
-        b1.x = b1.x - 7
-    elseif love.keyboard.isDown("d") then
-        p1.x = p1.x + 7
-        b1.x = b1.x + 7
-    end
-
-    -- debugging feature
-    if love.keyboard.isDown("space") then
-        scoreVal = scoreVal + 100
-    end
-end
-
 function hitbox()
     -- pad hitbox
     love.graphics.rectangle("line", p1.x, p1.y, p1.width, p1.height)    

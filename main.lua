@@ -21,6 +21,7 @@ function love.keypressed(key, isrepeat)
     elseif key == "f4" and debugMenu == "debug" then
         debugMenu = "none"
     end
+    -- trigger fail state
     if key == "f" then
         state = "fail"
     elseif key == "escape" and state == "fail" then
@@ -28,11 +29,29 @@ function love.keypressed(key, isrepeat)
     end
 end
 
+-- movement function
+function love.update(dt)
+    if love.keyboard.isDown("a") then
+        p1.x = p1.x - 7
+        b1.x = b1.x - 7
+    elseif love.keyboard.isDown("d") then
+        p1.x = p1.x + 7
+        b1.x = b1.x + 7
+    end
+    -- for testing purposes
+    if love.keyboard.isDown("space") then
+        scoreVal = scoreVal + 100
+    end    
+end
+
 function love.draw()
     -- if state is title, show title screen, otherwise launch game
     if state == "title" then
         love.graphics.setColor(uiText)
-        love.graphics.print("PLACEHOLDER TEXT", largeFont, 235, 220)
+        love.graphics.print("pad", largeFont, 310, 220)
+        love.graphics.setColor(uiSubText)
+        love.graphics.print("(PLACEHOLDER TEXT)", subFont, 265, 245)
+        love.graphics.setColor(uiText)
         love.graphics.print("Press Enter to play", textFont, 255, 260)
         love.graphics.setColor(uiSubText)
         love.graphics.print("incomplete", subFont, 10, 455)
@@ -40,8 +59,7 @@ function love.draw()
         ui()
         hitbox()
         score()
-    end
-    if state == "fail" then
+    elseif state == "fail" then
         failUI()
     end
     -- draw debug menu if f4 key is pressed
