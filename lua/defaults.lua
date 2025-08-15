@@ -1,24 +1,28 @@
 -- fonts
-scoreFont = love.graphics.newFont("/assets/W95FA.OTF", 24)
-w95fa = love.graphics.newFont("/assets/W95FA.OTF", 18)
-debugFont = love.graphics.newFont("/assets/W95FA.OTF", 14)    
+scoreFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 18)
+textFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 14)
+subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)    
+
+-- default game states
+state = "title"
+debugMenu = "none"
 
 -- border height
 border = (love.graphics.getWidth() / 2) / 2.25
 
 -- left
 bL = {
-    x1 = 142,
+    x1 = love.graphics.getWidth() / 4.25,
     y1 = 0,
-    x2 = 142,
+    x2 = love.graphics.getWidth() / 4.25,
     y2 = love.graphics.getHeight()
 }
 
 -- right
 bR = {
-    x1 = 484,
+    x1 = love.graphics.getWidth() - bL.x1,
     y1 = 0,
-    x2 = 484,
+    x2 = love.graphics.getWidth() - bL.x2,
     y2 = love.graphics.getHeight()
 }
 
@@ -52,7 +56,6 @@ function init()
     b1.x = 326
     b1.y = 413
     scoreVal = 0
-    hiScoreVal = 0
     levelVal = 1
 end
 
