@@ -35,5 +35,4 @@ Very incomplete.
 
 
 ## License
-
-TODO: Add license
+Licensed under the [MIT License](./LICENSE).
