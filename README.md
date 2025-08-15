@@ -12,8 +12,8 @@ Very incomplete.
 
 - A/D: Move paddle
 - F4: Open debug menu
-- F: Trigger game over scene
-- Space (for testing purposes): Add 100 points to score
+- F (for testing): Trigger game over scene
+- Space (for testing): Add 100 points to score
 
 ## TODO
 
