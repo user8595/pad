@@ -31,8 +31,10 @@ function love.draw()
     elseif state == "game" then
         require("lua.ui")
         require("lua.collision")
+        require("lua.score")
         ui()
         hitbox()
+        score()
     end
     -- draw debug menu if f4 key is pressed
     if debugMenu == "debug" then

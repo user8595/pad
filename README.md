@@ -8,7 +8,7 @@ Very incomplete.
 
 - Finish the collision system
 - Add ball "physics" functionality
-- Add scoring system
+- Add scoring system (finished high score functionality)
 - Add levels
 
 ## Libraries used
