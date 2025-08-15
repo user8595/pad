@@ -1,5 +1,5 @@
 -- fonts
-scoreFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 18)
+largeFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 18)
 textFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 14)
 subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)    
 
