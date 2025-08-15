@@ -12,17 +12,17 @@ border = (love.graphics.getWidth() / 2) / 2.25
 
 -- left
 bL = {
-    x1 = love.graphics.getWidth() / 4.25,
+    x1 = 151,
     y1 = 0,
-    x2 = love.graphics.getWidth() / 4.25,
+    x2 = 151,
     y2 = love.graphics.getHeight()
 }
 
 -- right
 bR = {
-    x1 = love.graphics.getWidth() - bL.x1,
+    x1 = 489,
     y1 = 0,
-    x2 = love.graphics.getWidth() - bL.x2,
+    x2 = 489,
     y2 = love.graphics.getHeight()
 }
 
