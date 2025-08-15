@@ -7,7 +7,6 @@ Very incomplete.
 ## TODO
 
 - Finish the collision system
-- Fix the misaligned board
 - Add ball "physics" functionality
 - Add scoring system
 - Add levels
