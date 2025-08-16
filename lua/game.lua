@@ -88,11 +88,13 @@ end
 function buttonHover()
     local x = love.mouse.getX()
     local y = love.mouse.getY()
+    -- retry button
     if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 20 and state == "fail" then
         buttonColor1 = {1, 1, 1, 1}
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
+    -- exit button
     if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 20 and state == "fail" then
         buttonColor2 = {1, 1, 1, 1}
     else

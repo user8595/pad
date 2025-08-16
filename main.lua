@@ -43,8 +43,8 @@ function love.keypressed(key, isrepeat)
     end
 end
 
--- movement function
 function love.update(dt)
+    -- movement function
     if love.keyboard.isDown("a") then
         p1.x = p1.x - 7
         b1.x = b1.x - 7
@@ -60,8 +60,9 @@ function love.update(dt)
     if state == "game" then
         score()
     end
-    -- 
+    -- open fail screen when all lifes lost
     lifeFail()
+    -- text hover effect in fail screen
     if state == "fail" then
         buttonHover()
     end
