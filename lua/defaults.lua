@@ -49,7 +49,10 @@ scoreVal = 0
 hiScoreVal = 0
 -- level
 levelVal = 1
+-- highscores
+highScores = {}
 
+-- reset stats
 function init()
     p1.x = 285
     p1.y = 420

@@ -9,9 +9,11 @@ function newSaveFile()
 end
 
 function loadSaveFile()
-    local highScores = {}
     for line in love.filesystem.lines("savefile.txt") do
         table.insert(highScores, tonumber(line))
+    end
+    if highScores[1] == nil then
+        highScores[1] = 0
     end
     hiScoreVal = highScores[1]
 end
@@ -20,6 +22,9 @@ end
 function score()
     if scoreVal >= hiScoreVal then
         hiScoreVal = scoreVal
+    end
+    if state == "title" then
+        hiScoreVal = highScores[1]
     end
 end
 

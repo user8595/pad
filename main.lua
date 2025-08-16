@@ -55,14 +55,7 @@ end
 function love.draw()
     -- game state function
     if state == "title" then
-        love.graphics.setColor(uiText)
-        love.graphics.print("pad", largeFont, 310, 220)
-        love.graphics.setColor(uiSubText)
-        love.graphics.print("(PLACEHOLDER TEXT)", subFont, 265, 245)
-        love.graphics.setColor(uiText)
-        love.graphics.print("Press Enter to play", textFont, 255, 260)
-        love.graphics.setColor(uiSubText)
-        love.graphics.print("incomplete", subFont, 10, 455)
+        title()
     elseif state == "game" then
         ui()
         hitbox()
@@ -74,13 +67,7 @@ function love.draw()
     end
     -- draw debug menu if f4 key is pressed
     if debugMenu == "debug" then
-        love.graphics.setColor(uiText)
-        love.graphics.print(tostring(love.timer.getFPS()) .. " FPS", subFont, 10, 10)
-        love.graphics.print(tostring(love.mouse.getX()) .. ", " .. tostring(love.mouse.getY()), subFont, 10, 25)
-        love.graphics.print(tostring(love.graphics.getWidth()) .. " x " .. tostring(love.graphics.getHeight()), subFont, 10, 40)
-        love.graphics.print(p1.x .. ", " .. p1.y, subFont, 10, 55)
-        love.graphics.print(b1.x .. ", " .. b1.y, subFont, 10, 70)
-        love.graphics.print("scene: " .. state, subFont, 10, 85)
+        debugUI()
     else
         return
     end
