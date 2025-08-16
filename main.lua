@@ -92,11 +92,11 @@ end
 
 function love.mousepressed(x, y, button)
     -- retry button
-    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 20 and state == "fail" then
+    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and state == "fail" then
         state = "game"
         init()
     -- exit button
-    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 20 and state == "fail" then
+    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and state == "fail" then
         state = "title"
         if scoreVal >= hiScoreVal then
             saveFile()

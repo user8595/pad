@@ -4,9 +4,9 @@ require("textures")
 -- title screen
 function title()
     love.graphics.setColor(uiText)
-    love.graphics.print("pad", largeFont, 310, 220)
+    love.graphics.print("pad", largeFont, 310, 216)
     love.graphics.setColor(uiSubText)
-    love.graphics.print("(PLACEHOLDER TEXT)", subFont, 265, 245)
+    love.graphics.print("(PLACEHOLDER TEXT)", subFont, 265, 244)
     love.graphics.setColor(uiText)
     love.graphics.print("Press Enter to play", textFont, 255, 260)
     love.graphics.setColor(uiSubText)
@@ -46,8 +46,8 @@ function ui()
     love.graphics.print(levelVal, largeFont, bR.x1 + 15, 420)
 
     -- lifes
-    love.graphics.print("x" .. lifesVal, subFont, bR.x1 + 15, 145)
-    love.graphics.draw(lifeicon, bR.x1 + 15, 116, 0, 0.5, 0.5)
+    love.graphics.print("x" .. lifesVal, subFont, bR.x1 + 15, 140)
+    love.graphics.draw(lifeicon, bR.x1 + 15, 124, 0, 0.5, 0.5)
 end
 
 -- default variables
@@ -89,13 +89,13 @@ function buttonHover()
     local x = love.mouse.getX()
     local y = love.mouse.getY()
     -- retry button
-    if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 20 and state == "fail" then
+    if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and state == "fail" then
         buttonColor1 = {1, 1, 1, 1}
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
-    if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 20 and state == "fail" then
+    if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and state == "fail" then
         buttonColor2 = {1, 1, 1, 1}
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
