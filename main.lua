@@ -3,6 +3,11 @@ require("lua.ui")
 require("lua.collision")
 require("lua.score")
 
+function love.load()
+    newSaveFile()
+    loadSave()
+end
+
 function love.keypressed(key, isrepeat)
     -- exit or close game
     if key == "escape" and state == "title" then
@@ -41,11 +46,15 @@ function love.update(dt)
     -- for testing purposes
     if love.keyboard.isDown("space") then
         scoreVal = scoreVal + 100
-    end    
+    end
+    if state == "game" then
+        score()
+    end
 end
 
 function love.draw()
-    -- if state is title, show title screen, otherwise launch game
+    -- game state function
+    love.graphics.print(love.filesystem.getSaveDirectory(), 40, 40)
     if state == "title" then
         love.graphics.setColor(uiText)
         love.graphics.print("pad", largeFont, 310, 220)
@@ -58,9 +67,11 @@ function love.draw()
     elseif state == "game" then
         ui()
         hitbox()
-        score()
     elseif state == "fail" then
         failUI()
+        if scoreVal >= hiScoreVal then
+            saveScore()
+        end
     end
     -- draw debug menu if f4 key is pressed
     if debugMenu == "debug" then
