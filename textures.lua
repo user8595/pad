@@ -1,0 +1,1 @@
+lifeicon = love.graphics.newImage("/assets/textures/lifeicon.png")

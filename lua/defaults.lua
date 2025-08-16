@@ -1,7 +1,7 @@
 -- fonts
 largeFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 18)
 textFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 14)
-subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)    
+subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)
 
 -- default game states
 state = "title"
@@ -49,6 +49,8 @@ scoreVal = 0
 hiScoreVal = 0
 -- level
 levelVal = 1
+-- lifes
+lifesVal = 2
 -- highscores
 highScores = {}
 
@@ -60,6 +62,13 @@ function init()
     b1.y = 413
     scoreVal = 0
     levelVal = 1
+end
+
+function lifeFail()
+    if lifesVal <= -1 then
+        state = "fail"
+        lifesVal = 2
+    end
 end
 
 -- color

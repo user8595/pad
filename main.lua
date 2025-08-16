@@ -1,9 +1,10 @@
 require("lua.defaults")
-require("lua.ui")
+require("lua.game")
 require("lua.collision")
 require("lua.save")
 
 function love.load()
+    require("textures")
     newSaveFile()
     loadSaveFile()
 end
@@ -18,6 +19,7 @@ function love.keypressed(key, isrepeat)
     -- launch game
     if key == "return" and state == "title" then
         state = "game"
+        -- reset stats
         init()
     end
     -- toggle debug menu
@@ -29,7 +31,13 @@ function love.keypressed(key, isrepeat)
     -- trigger fail state
     if key == "f" then
         state = "fail"
-    elseif key == "escape" and state == "fail" then
+    end
+    -- reduce health
+    if key == "down" then
+        lifesVal = lifesVal - 1
+    end
+    -- exit from fail screen
+    if key == "escape" and state == "fail" then
         state = "title"
     end
 end
@@ -51,6 +59,8 @@ function love.update(dt)
     if state == "game" then
         score()
     end
+    -- 
+    lifeFail()
 end
 
 function love.draw()

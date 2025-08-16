@@ -1,5 +1,7 @@
 require("lua.defaults")
+require("textures")
 
+-- title screen
 function title()
     love.graphics.setColor(uiText)
     love.graphics.print("pad", largeFont, 310, 220)
@@ -11,8 +13,8 @@ function title()
     love.graphics.print("incomplete", subFont, 10, 455)
 end
 
+-- game ui
 function ui()
-    -- ui
     -- board left
     love.graphics.setColor(uiColor)
     love.graphics.line(bL.x1, 110, bL.x1 - 110, 110)
@@ -42,8 +44,13 @@ function ui()
     love.graphics.print("Lv.", textFont, bR.x1 + 15, 400)
     love.graphics.setColor(uiText)
     love.graphics.print(levelVal, largeFont, bR.x1 + 15, 420)
+
+    -- lifes
+    love.graphics.print("x" .. lifesVal, subFont, bR.x1 + 15, 145)
+    love.graphics.draw(lifeicon, bR.x1 + 15, 116, 0, 0.5, 0.5)
 end
 
+-- fail screen
 function failUI()
     local popupFailW = love.graphics.getWidth() / 2
     local popupFailH = love.graphics.getHeight() / 2
