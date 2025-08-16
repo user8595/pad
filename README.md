@@ -14,6 +14,7 @@ Very incomplete.
 - F4: Open debug menu
 - F (for testing): Trigger game over scene
 - Space (for testing): Add 100 points to score
+- Down arrow (for testing): Reduce lifes by 1
 
 ## TODO
 
@@ -35,4 +36,4 @@ Very incomplete.
 
 
 ## License
-Licensed under the [MIT License](./LICENSE).
+Licensed under the [MIT License](./LICENSE.md).
