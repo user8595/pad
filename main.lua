@@ -20,7 +20,7 @@ function love.keypressed(key, isrepeat)
         state = "game"
         init()
     end
-    -- enable debug menu
+    -- toggle debug menu
     if key == "f4" and debugMenu == "none" then
         debugMenu = "debug"
     elseif key == "f4" and debugMenu == "debug" then
@@ -47,6 +47,7 @@ function love.update(dt)
     if love.keyboard.isDown("space") then
         scoreVal = scoreVal + 100
     end
+    -- hi score code
     if state == "game" then
         score()
     end

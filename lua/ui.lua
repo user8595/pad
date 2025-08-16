@@ -70,12 +70,19 @@ function failUI()
     love.graphics.print("Quit", largeFont, popupFailW - 12, popupFailH + 49)
 end
 
+-- debug ui
 function debugUI()
     love.graphics.setColor(uiText)
+    -- fps
     love.graphics.print(tostring(love.timer.getFPS()) .. " FPS", subFont, 10, 10)
+    -- mouse position
     love.graphics.print(tostring(love.mouse.getX()) .. ", " .. tostring(love.mouse.getY()), subFont, 10, 25)
+    -- resolution
     love.graphics.print(tostring(love.graphics.getWidth()) .. " x " .. tostring(love.graphics.getHeight()), subFont, 10, 40)
+    -- paddle position
     love.graphics.print(p1.x .. ", " .. p1.y, subFont, 10, 55)
+    -- ball position
     love.graphics.print(b1.x .. ", " .. b1.y, subFont, 10, 70)
+    -- current scene
     love.graphics.print("scene: " .. state, subFont, 10, 85)    
 end
