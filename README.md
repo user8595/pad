@@ -21,7 +21,7 @@ Very incomplete.
 - Finish the collision system
 - Add ball "physics" functionality
 - Add scoring system (finished high score functionality)
-- Add lifes functionality
+- Add lifes functionality (partial)
 - Add levels
 - Add textures when done
 

@@ -35,6 +35,7 @@ function love.keypressed(key, isrepeat)
     -- reduce health
     if key == "down" then
         lifesVal = lifesVal - 1
+        initLife()
     end
     -- exit from fail screen
     if key == "escape" and state == "fail" then
