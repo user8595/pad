@@ -8,7 +8,7 @@ function newSaveFile()
     end
 end
 
-function loadSave()
+function loadSaveFile()
     local highScores = {}
     for line in love.filesystem.lines("savefile.txt") do
         table.insert(highScores, tonumber(line))
@@ -24,7 +24,7 @@ function score()
 end
 
 -- save hi-score
-function saveScore()
+function saveFile()
     local scoreData = {hiScoreVal}
     love.filesystem.write("savefile.txt", table.concat(scoreData))
 end

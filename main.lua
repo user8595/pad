@@ -1,11 +1,11 @@
 require("lua.defaults")
 require("lua.ui")
 require("lua.collision")
-require("lua.score")
+require("lua.save")
 
 function love.load()
     newSaveFile()
-    loadSave()
+    loadSaveFile()
 end
 
 function love.keypressed(key, isrepeat)
@@ -54,7 +54,6 @@ end
 
 function love.draw()
     -- game state function
-    love.graphics.print(love.filesystem.getSaveDirectory(), 40, 40)
     if state == "title" then
         love.graphics.setColor(uiText)
         love.graphics.print("pad", largeFont, 310, 220)
@@ -70,7 +69,7 @@ function love.draw()
     elseif state == "fail" then
         failUI()
         if scoreVal >= hiScoreVal then
-            saveScore()
+            saveFile()
         end
     end
     -- draw debug menu if f4 key is pressed
