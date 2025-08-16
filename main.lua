@@ -61,6 +61,9 @@ function love.update(dt)
     end
     -- 
     lifeFail()
+    if state == "fail" then
+        buttonHover()
+    end
 end
 
 function love.draw()
@@ -76,10 +79,25 @@ function love.draw()
             saveFile()
         end
     end
+    
     -- draw debug menu if f4 key is pressed
     if debugMenu == "debug" then
         debugUI()
     else
         return
+    end
+end
+
+function love.mousepressed(x, y, button)
+    -- retry button
+    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 20 and state == "fail" then
+        state = "game"
+        init()
+    -- exit button
+    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 20 and state == "fail" then
+        state = "title"
+        if scoreVal >= hiScoreVal then
+            saveFile()
+        end
     end
 end

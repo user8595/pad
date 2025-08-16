@@ -50,11 +50,18 @@ function ui()
     love.graphics.draw(lifeicon, bR.x1 + 15, 116, 0, 0.5, 0.5)
 end
 
+-- default variables
+local popupFailW = love.graphics.getWidth() / 2
+local popupFailH = love.graphics.getHeight() / 2
+popupButton1X = popupFailW - 21
+popupButton1Y = popupFailH + 24
+popupButton2X = popupFailW - 12
+popupButton2Y = popupFailH + 49
+local buttonColor1 = {0.75, 0.75, 0.75, 1}
+local buttonColor2 = {0.75, 0.75, 0.75, 1}
+
 -- fail screen
 function failUI()
-    local popupFailW = love.graphics.getWidth() / 2
-    local popupFailH = love.graphics.getHeight() / 2
-    local buttonColor = {0.75, 0.75, 0.75, 1}
     -- fail popup
     love.graphics.setColor(uiText)
     love.graphics.rectangle("line", popupFailW - 105 , popupFailH - 90, 220, 180)
@@ -71,10 +78,26 @@ function failUI()
         love.graphics.printf("new record!", subFont, popupFailW - 105, popupFailH, 220, "center")        
     end
     -- buttons
-    love.graphics.setColor(buttonColor)
-    love.graphics.print("Retry", largeFont, popupFailW - 21, popupFailH + 24)
-    love.graphics.setColor(buttonColor)
-    love.graphics.print("Quit", largeFont, popupFailW - 12, popupFailH + 49)
+    love.graphics.setColor(buttonColor1)
+    love.graphics.print("Retry", largeFont, popupButton1X, popupButton1Y)
+    love.graphics.setColor(buttonColor2)
+    love.graphics.print("Quit", largeFont, popupButton2X, popupButton2Y)
+end
+
+-- lighten text on button hover
+function buttonHover()
+    local x = love.mouse.getX()
+    local y = love.mouse.getY()
+    if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 20 and state == "fail" then
+        buttonColor1 = {1, 1, 1, 1}
+    else
+        buttonColor1 = {0.75, 0.75, 0.75, 1}
+    end
+    if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 20 and state == "fail" then
+        buttonColor2 = {1, 1, 1, 1}
+    else
+        buttonColor2 = {0.75, 0.75, 0.75, 1}
+    end
 end
 
 -- debug ui
