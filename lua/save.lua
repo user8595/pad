@@ -21,16 +21,6 @@ function loadSaveFile()
     hiScoreVal = highScores[1]
 end
 
--- hi-score code
-function score()
-    if scoreVal >= hiScoreVal then
-        hiScoreVal = scoreVal
-    end
-    if state == "title" then
-        hiScoreVal = highScores[1]
-    end
-end
-
 -- save hi-score
 function saveFile()
     local scoreData = {hiScoreVal}

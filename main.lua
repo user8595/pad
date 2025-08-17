@@ -1,7 +1,8 @@
 require("lua.defaults")
-require("lua.game")
+require("lua.ui")
 require("lua.collision")
 require("lua.save")
+require("lua.game")
 
 function love.load()
     require("textures")
