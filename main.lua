@@ -16,6 +16,7 @@ function love.keypressed(key, isrepeat)
         love.event.quit()
     elseif key == "escape" and state == "game" then
         state = "title"
+        hiScoreVal = highScores[1]
     end
     -- launch game
     if key == "return" and state == "title" then
