@@ -4,13 +4,11 @@ textFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 14)
 subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)
 
 -- default game states
+-- "title", "game", "fail"
 state = "title"
 debugMenu = "none"
 
--- border height
-border = (love.graphics.getWidth() / 2) / 2.25
-
--- left
+-- border left
 bL = {
     x1 = 151,
     y1 = 0,
@@ -18,7 +16,7 @@ bL = {
     y2 = love.graphics.getHeight()
 }
 
--- right
+-- border right
 bR = {
     x1 = 489,
     y1 = 0,

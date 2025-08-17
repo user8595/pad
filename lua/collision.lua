@@ -13,7 +13,7 @@ function hitbox()
     local borderLeft = {name="borderL"}
     local borderRight = {name="borderR"}
 
-    local world = bump.newWorld()
+    local world = bump.newWorld(64)
 
     -- hitboxes
     -- pad

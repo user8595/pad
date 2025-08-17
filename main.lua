@@ -45,6 +45,20 @@ function love.keypressed(key, isrepeat)
     end
 end
 
+function love.mousepressed(x, y, button)
+    -- retry button
+    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and state == "fail" then
+        state = "game"
+        init()
+    -- exit button
+    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and state == "fail" then
+        state = "title"
+        if scoreVal >= hiScoreVal then
+            saveFile()
+        end
+    end
+end
+
 function love.update(dt)
     -- movement function
     if love.keyboard.isDown("a") then
@@ -89,19 +103,5 @@ function love.draw()
         debugUI()
     else
         return
-    end
-end
-
-function love.mousepressed(x, y, button)
-    -- retry button
-    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and state == "fail" then
-        state = "game"
-        init()
-    -- exit button
-    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and state == "fail" then
-        state = "title"
-        if scoreVal >= hiScoreVal then
-            saveFile()
-        end
     end
 end
