@@ -31,7 +31,7 @@ end
 -- life lost code
 function lifeFail()
     if lifesVal <= -1 then
-        state = "fail"
+        isFail = true
         lifesVal = 2
     end
 end

@@ -3,17 +3,25 @@ largeFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 18)
 textFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 14)
 subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)
 
+-- window height and width
+winWidth = love.graphics.getWidth()
+winHeight = love.graphics.getHeight()
+
 -- default game states
--- "title", "game", "fail"
+-- "title", "game"
 state = "title"
 debugMenu = "none"
+isFail = false
+isPause = false
+--TODO: Add about/credits scene
+isCredits = false
 
 -- border left
 bL = {
     x1 = 151,
     y1 = 0,
     x2 = 151,
-    y2 = love.graphics.getHeight()
+    y2 = winHeight
 }
 
 -- border right
@@ -21,7 +29,7 @@ bR = {
     x1 = 489,
     y1 = 0,
     x2 = 489,
-    y2 = love.graphics.getHeight()
+    y2 = winHeight
 }
 
 -- pad
@@ -70,4 +78,10 @@ uiColor = {
     1,
     1,
     1
+}
+overlay = {
+    0,
+    0,
+    0,
+    0.65
 }

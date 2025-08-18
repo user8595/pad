@@ -51,31 +51,36 @@ function ui()
 end
 
 -- default variables
-local popupFailW = love.graphics.getWidth() / 2
-local popupFailH = love.graphics.getHeight() / 2
-popupButton1X = popupFailW - 21
-popupButton1Y = popupFailH + 24
-popupButton2X = popupFailW - 12
-popupButton2Y = popupFailH + 49
+local popupW = winWidth / 2
+local popupH = winHeight / 2
+popupButton1X = popupW - 21
+popupButton1Y = popupH + 24
+popupButton2X = popupW - 12
+popupButton2Y = popupH + 49
 local buttonColor1 = {0.75, 0.75, 0.75, 1}
 local buttonColor2 = {0.75, 0.75, 0.75, 1}
 
 -- fail screen
 function failUI()
+    -- dark overlay
+    love.graphics.setColor(overlay)
+    love.graphics.rectangle("fill", 0, 0, winWidth, winHeight)
     -- fail popup
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("fill", popupW - 105 , popupH - 90, 220, 180)
     love.graphics.setColor(uiText)
-    love.graphics.rectangle("line", popupFailW - 105 , popupFailH - 90, 220, 180)
+    love.graphics.rectangle("line", popupW - 105 , popupH - 90, 220, 180)
     love.graphics.setColor(uiText)
-    love.graphics.print("Game Over", largeFont, popupFailW - 47, popupFailH - 70)
+    love.graphics.print("Game Over", largeFont, popupW - 47, popupH - 70)
     -- current score
     love.graphics.setColor(uiSubText)
-    love.graphics.print("score", subFont, popupFailW - 14, popupFailH - 38)
+    love.graphics.print("score", subFont, popupW - 14, popupH - 38)
     love.graphics.setColor(uiText)
-    love.graphics.printf(scoreVal, largeFont, popupFailW - 105, popupFailH - 24, 220, "center")
+    love.graphics.printf(scoreVal, largeFont, popupW - 105, popupH - 24, 220, "center")
     love.graphics.setColor(uiSubText)
     -- show new record text
     if scoreVal >= hiScoreVal then
-        love.graphics.printf("new record!", subFont, popupFailW - 105, popupFailH, 220, "center")        
+        love.graphics.printf("new record!", subFont, popupW - 105, popupH, 220, "center")        
     end
     -- buttons
     love.graphics.setColor(buttonColor1)
@@ -84,18 +89,36 @@ function failUI()
     love.graphics.print("Quit", largeFont, popupButton2X, popupButton2Y)
 end
 
+-- pause ui
+function pauseUI()
+    -- dark overlay
+    love.graphics.setColor(overlay)
+    love.graphics.rectangle("fill", 0, 0, winWidth, winHeight)
+    -- text frame
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("fill", popupW - 50 , popupH - 10, 93, 30)
+    love.graphics.setColor(uiText)
+    love.graphics.rectangle("line", popupW - 50 , popupH - 10, 93, 30)
+    -- pause text
+    love.graphics.setColor(uiText)
+    love.graphics.print("Paused", textFont, popupW - 30, popupH - 5)
+    love.graphics.setColor(uiSubText)
+    love.graphics.print("ESC to title", subFont, popupW - 41, popupH + 32)
+
+end
+
 -- lighten text on button hover
 function buttonHover()
     local x = love.mouse.getX()
     local y = love.mouse.getY()
     -- retry button
-    if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and state == "fail" then
+    if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and isFail == true then
         buttonColor1 = {1, 1, 1, 1}
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
-    if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and state == "fail" then
+    if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and isFail == true then
         buttonColor2 = {1, 1, 1, 1}
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
@@ -116,5 +139,13 @@ function debugUI()
     -- ball position
     love.graphics.print(b1.x .. ", " .. b1.y, subFont, 10, 70)
     -- current scene
-    love.graphics.print("scene: " .. state, subFont, 10, 85)    
+    love.graphics.print("scene: " .. state, subFont, 10, 85)
+    -- current popup scene
+    if isFail == true then
+        love.graphics.print("isFail", subFont, 10, 100)
+    elseif isPause == true then
+        love.graphics.print("isPause", subFont, 10, 100)
+    elseif isCredits == true then
+        love.graphics.print("isCredits", subFont, 10, 100)
+    end
 end

@@ -12,6 +12,7 @@ Very incomplete.
 
 * A/D: Move paddle
 * F4: Open debug menu
+* P: Pause game (doesn't pause game yet)
 * F (for testing): Trigger game over scene
 * Space (for testing): Add 100 points to score
 * Down arrow (for testing): Reduce lifes by 1

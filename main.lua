@@ -15,44 +15,60 @@ function love.keypressed(key, isrepeat)
     if key == "escape" and state == "title" then
         love.event.quit()
     elseif key == "escape" and state == "game" then
+        isFail = false
+        isPause = false
         state = "title"
         hiScoreVal = highScores[1]
     end
+
     -- launch game
     if key == "return" and state == "title" then
         state = "game"
         -- reset stats
         init()
     end
+
+    -- exit from fail screen
+    if key == "escape" and isFail == true then
+        state = "title"
+    end
+
     -- toggle debug menu
     if key == "f4" and debugMenu == "none" then
         debugMenu = "debug"
     elseif key == "f4" and debugMenu == "debug" then
         debugMenu = "none"
     end
+
+    -- toggle pause menu
+    if key == "p" and state == "game" and isFail == false and isPause == false then
+        isPause = true
+    elseif key == "p" and isPause == true and state == "game" and isFail == false then
+        isPause = false
+    end
+
     -- trigger fail state
     if key == "f" then
-        state = "fail"
+        isFail = true
     end
+
     -- reduce health
     if key == "down" then
         lifesVal = lifesVal - 1
         initLife()
     end
-    -- exit from fail screen
-    if key == "escape" and state == "fail" then
-        state = "title"
-    end
 end
 
 function love.mousepressed(x, y, button)
     -- retry button
-    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and state == "fail" then
+    if button == 1 and x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and isFail == true then
         state = "game"
+        isFail = false
         init()
     -- exit button
-    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and state == "fail" then
+    elseif button == 1 and x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and isFail == true then
         state = "title"
+        isFail = false
         if scoreVal >= hiScoreVal then
             saveFile()
         end
@@ -79,8 +95,14 @@ function love.update(dt)
     -- open fail screen when all lifes lost
     lifeFail()
     -- text hover effect in fail screen
-    if state == "fail" then
+    if isFail == true then
         buttonHover()
+    end
+
+    if isPause == true then
+        pauseUI()
+    elseif isPause == false then
+        return
     end
 end
 
@@ -91,11 +113,19 @@ function love.draw()
     elseif state == "game" then
         ui()
         hitbox()
-    elseif state == "fail" then
+    end
+    if isFail == true then
+        isPause = false
         failUI()
         if scoreVal >= hiScoreVal then
             saveFile()
         end
+    end
+
+    if isPause == true then
+        pauseUI()
+    else
+        return
     end
     
     -- draw debug menu if f4 key is pressed
