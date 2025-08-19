@@ -15,6 +15,8 @@ isFail = false
 isPause = false
 --TODO: Add about/credits scene
 isCredits = false
+--TODO: Add controls help scene
+isControlsHelp = false
 
 -- border left
 bL = {
@@ -79,9 +81,9 @@ uiColor = {
     1,
     1
 }
-overlay = {
+boardBg = {
+    0.05,
+    0.01,
     0,
-    0,
-    0,
-    0.65
+    0.25
 }

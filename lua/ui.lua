@@ -5,16 +5,23 @@ require("textures")
 function title()
     love.graphics.setColor(uiText)
     love.graphics.print("pad", largeFont, 310, 216)
+
     love.graphics.setColor(uiSubText)
     love.graphics.print("(PLACEHOLDER TEXT)", subFont, 265, 244)
+
     love.graphics.setColor(uiText)
     love.graphics.print("Press Enter to play", textFont, 255, 260)
+
     love.graphics.setColor(uiSubText)
     love.graphics.print("incomplete", subFont, 10, 455)
 end
 
 -- game ui
 function ui()
+    -- board background
+    love.graphics.setColor(boardBg)
+    love.graphics.rectangle("fill", bL.x1, bL.y1, bR.x1 - bL.x1, bR.y2)
+
     -- board left
     love.graphics.setColor(uiColor)
     love.graphics.line(bL.x1, 110, bL.x1 - 110, 110)
@@ -66,7 +73,7 @@ local buttonColor3 = {0.75, 0.75, 0.75, 1}
 -- fail screen
 function failUI()
     -- dark overlay
-    love.graphics.setColor(overlay)
+    love.graphics.setColor(0, 0, 0, 0.65)
     love.graphics.rectangle("fill", 0, 0, winWidth, winHeight)
     -- fail popup
     love.graphics.setColor(0, 0, 0, 1)
@@ -105,7 +112,7 @@ pauseY3 = popupH + 56
 -- pause ui
 function pauseUI()
     -- dark overlay
-    love.graphics.setColor(overlay)
+    love.graphics.setColor(0, 0, 0, 0.65)
     love.graphics.rectangle("fill", 0, 0, winWidth, winHeight)
     -- text frame
     love.graphics.setColor(0, 0, 0, 1)

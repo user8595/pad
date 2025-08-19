@@ -106,13 +106,13 @@ function love.update(dt)
         end
         -- increase speed by 3 pixels when "k" key is held
         if love.keyboard.isDown("a") and love.keyboard.isDown("k") then
-            p1.x = p1.x - 3
-            b1.x = b1.x - 3
+            p1.x = p1.x - 2
+            b1.x = b1.x - 2
         elseif love.keyboard.isDown("d") and love.keyboard.isDown("k") then
-            p1.x = p1.x + 3
-            b1.x = b1.x + 3
+            p1.x = p1.x + 2
+            b1.x = b1.x + 2
         end
-        -- freeze movement if paused
+    -- freeze movement if paused
     elseif isPause == true or isFail == true then
         pauseButtonHover()
     end
@@ -133,6 +133,8 @@ function love.update(dt)
 end
 
 function love.draw()
+    -- draw background
+    love.graphics.draw(bg, 0, 0)
     states()
     debugMn()
 end
