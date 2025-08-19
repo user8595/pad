@@ -50,15 +50,18 @@ function ui()
     love.graphics.draw(lifeicon, bR.x1 + 15, 124, 0, 0.5, 0.5)
 end
 
--- default variables
+-- default popup variables
 local popupW = winWidth / 2
 local popupH = winHeight / 2
-popupButton1X = popupW - 21
-popupButton1Y = popupH + 24
-popupButton2X = popupW - 12
-popupButton2Y = popupH + 49
+-- for fail screen only
+popupButtonX1 = popupW - 21
+popupButtonY1 = popupH + 24
+popupButtonX2 = popupW - 12
+popupButtonY2 = popupH + 49
+-- hover text
 local buttonColor1 = {0.75, 0.75, 0.75, 1}
 local buttonColor2 = {0.75, 0.75, 0.75, 1}
+local buttonColor3 = {0.75, 0.75, 0.75, 1}
 
 -- fail screen
 function failUI()
@@ -84,10 +87,20 @@ function failUI()
     end
     -- buttons
     love.graphics.setColor(buttonColor1)
-    love.graphics.print("Retry", largeFont, popupButton1X, popupButton1Y)
+    love.graphics.print("Retry", largeFont, popupButtonX1, popupButtonY1)
     love.graphics.setColor(buttonColor2)
-    love.graphics.print("Quit", largeFont, popupButton2X, popupButton2Y)
+    love.graphics.print("Quit", largeFont, popupButtonX2, popupButtonY2)
 end
+
+-- resume button
+pauseX1 = popupW - 32
+pauseY1 = popupH + 3
+-- restart button
+pauseX2 = popupW - 32
+pauseY2 = popupH + 29
+-- quit button
+pauseX3 = popupW - 15
+pauseY3 = popupH + 56
 
 -- pause ui
 function pauseUI()
@@ -96,32 +109,63 @@ function pauseUI()
     love.graphics.rectangle("fill", 0, 0, winWidth, winHeight)
     -- text frame
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.rectangle("fill", popupW - 50 , popupH - 10, 93, 30)
+    love.graphics.rectangle("fill", popupW - 42 , popupH - 35, 93, 30)
     love.graphics.setColor(uiText)
-    love.graphics.rectangle("line", popupW - 50 , popupH - 10, 93, 30)
+    love.graphics.rectangle("line", popupW - 42 , popupH - 35, 93, 30)
     -- pause text
     love.graphics.setColor(uiText)
-    love.graphics.print("Paused", textFont, popupW - 30, popupH - 5)
+    love.graphics.print("Paused", largeFont, popupW - 30, popupH - 30)
     love.graphics.setColor(uiSubText)
-    love.graphics.print("ESC to title", subFont, popupW - 41, popupH + 32)
-
+    love.graphics.print("ESC to title", subFont, popupW - 30, winHeight - 20)
+    -- resume text
+    love.graphics.setColor(buttonColor1)
+    love.graphics.print("Resume", largeFont, pauseX1, pauseY1)
+    -- restart text
+    love.graphics.setColor(buttonColor2)
+    love.graphics.print("Restart", largeFont, pauseX2, pauseY2)
+    -- restart text
+    love.graphics.setColor(buttonColor3)
+    love.graphics.print("Quit", largeFont, pauseX3, pauseY3)
 end
 
 -- lighten text on button hover
-function buttonHover()
+function failButtonHover()
     local x = love.mouse.getX()
     local y = love.mouse.getY()
     -- retry button
-    if x >= popupButton1X and x <= popupButton1X + 52 and y >= popupButton1Y and y <= popupButton1Y + 22 and isFail == true then
+    if x >= popupButtonX1 and x <= popupButtonX1 + 52 and y >= popupButtonY1 and y <= popupButtonY1 + 22 and isFail == true then
         buttonColor1 = {1, 1, 1, 1}
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
-    if x >= popupButton2X and x <= popupButton2X + 34 and y >= popupButton2Y and y <= popupButton2Y + 22 and isFail == true then
+    if x >= popupButtonX2 and x <= popupButtonX2 + 34 and y >= popupButtonY2 and y <= popupButtonY2 + 22 and isFail == true then
         buttonColor2 = {1, 1, 1, 1}
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
+    end
+end
+
+function pauseButtonHover()
+    local x = love.mouse.getX()
+    local y = love.mouse.getY()
+    -- resume button
+    if x >= pauseX1 and x <= pauseX1 + 72 and y >= pauseY1 and y <= pauseY1 + 17 and isPause == true then
+        buttonColor1 = {1, 1, 1, 1}
+    else
+        buttonColor1 = {0.75, 0.75, 0.75, 1}
+    end
+    -- restart button
+    if x >= pauseX2 and x <= pauseX2 + 72 and y >= pauseY2 and y <= pauseY2 + 17 and isPause == true then
+        buttonColor2 = {1, 1, 1, 1}
+    else
+        buttonColor2 = {0.75, 0.75, 0.75, 1}
+    end
+    -- exit button
+    if x >= pauseX3 and x <= pauseX3 + 34 and y >= pauseY3 and y <= pauseY3 + 19 and isPause == true then
+        buttonColor3 = {1, 1, 1, 1}
+    else
+        buttonColor3 = {0.75, 0.75, 0.75, 1}
     end
 end
 

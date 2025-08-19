@@ -34,7 +34,7 @@ bR = {
 
 -- pad
 p1 = {
-    x = 285,
+    x = 290,
     y = 420,
     width = 60,
     height = 10
