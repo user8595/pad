@@ -5,7 +5,6 @@ function newSaveFile()
     if love.filesystem.read("savefile.txt") == nil then
         love.filesystem.write("savefile.txt", "0")
     else
-        return 0
     end
 end
 

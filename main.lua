@@ -4,16 +4,30 @@ require("lua.collision")
 require("lua.save")
 require("lua.game")
 
+-- open debugger if launched in debug mode
+if arg[2] == "debug" then
+    require("lldebugger").start()
+end
+
 function love.load()
-    require("textures")
+    require("lua.textures")
     newSaveFile()
     loadSaveFile()
+    titleBlink()
 end
 
 function love.keypressed(key, isrepeat)
     -- exit or close game
     if key == "escape" and state == "title" and isPause == false and isFail == false then
         love.event.quit()
+    -- exit to title screen when escape is pressed in main menu
+    elseif key == "escape" and state == "menu" and isPause == false and isFail == false and isAbout == false and isHelp == false then
+        state = "title"
+    -- when pressed in about screen, exit to menu
+    elseif key == "escape" and isPause == false and isFail == false and isAbout == true then
+        isAbout = false
+    elseif key == "escape" and isPause == false and isFail == false and isHelp == true then
+        isHelp = false
     -- pause game if escape is pressed
     elseif key == "escape" and state == "game" and isPause == false and isFail == false then
         isPause = true
@@ -21,12 +35,12 @@ function love.keypressed(key, isrepeat)
     elseif key == "escape" and state == "game" and isFail == true then
         isFail = false
         isPause = false
-        state = "title"
+        state = "menu"
         hiScoreVal = highScores[1]
     elseif key == "escape" and state == "game" and isPause == true then
         isFail = false
         isPause = false
-        state = "title"
+        state = "menu"
         hiScoreVal = highScores[1]
     end
 
@@ -37,18 +51,16 @@ function love.keypressed(key, isrepeat)
         isPause = false
     end
 
-    -- launch game
+    -- open main menu
     if key == "return" and state == "title" then
-        state = "game"
-        -- reset stats
-        init()
+        state = "menu"
     end
 
     -- toggle debug menu
-    if key == "f4" and debugMenu == "none" then
-        debugMenu = "debug"
-    elseif key == "f4" and debugMenu == "debug" then
-        debugMenu = "none"
+    if key == "f4" and debugMenu == false then
+        debugMenu = true
+    elseif key == "f4" and debugMenu == true then
+        debugMenu = false
     end
 
     -- trigger fail state
@@ -58,26 +70,43 @@ function love.keypressed(key, isrepeat)
 
     -- reduce health
     if key == "down" then
-        lifesVal = lifesVal - 1
+        livesVal = livesVal - 1
         initLife()
     end
 end
 
 function love.mousepressed(x, y, button)
+    -- main menu screen
+    -- play button
+    if button == 1 and x >= 303 and x <= 341 and y >= 240 and y <= 264 and state == "menu" then
+        state = "game"
+        init()
+    -- help button
+    elseif button == 1 and x >= 303 and x <= 340 and y >= 266 and y <= 288 and state == "menu" then
+        isHelp = true
+    -- about button
+    elseif button == 1 and x >= 295 and x <= 348 and y >= 292 and y <= 316 and state == "menu" then
+        isAbout = true
+    -- exit button
+    elseif button == 1 and x >= 277 and x <= 368 and y >= 318 and y <= 342 and state == "menu" then
+        love.event.quit()
+    end
+
     -- fail screen
     -- retry button
     if button == 1 and x >= popupButtonX1 and x <= popupButtonX1 + 52 and y >= popupButtonY1 and y <= popupButtonY1 + 22 and isFail == true then
         state = "game"
         isFail = false
         init()
-        -- exit button
+    -- exit button
     elseif button == 1 and x >= popupButtonX2 and x <= popupButtonX2 + 34 and y >= popupButtonY2 and y <= popupButtonY2 + 22 and isFail == true then
-        state = "title"
+        state = "menu"
         isFail = false
         if scoreVal >= hiScoreVal then
             saveFile()
         end
     end
+
     -- pause screen
     -- resume button
     if button == 1 and x >= pauseX1 and x <= pauseX1 + 72 and y >= pauseY1 and y <= pauseY1 + 17 and isPause == true then
@@ -89,52 +118,76 @@ function love.mousepressed(x, y, button)
         init()
         -- exit button
     elseif button == 1 and x >= pauseX3 and x <= pauseX3 + 34 and y >= pauseY3 and y <= pauseY3 + 17 and isPause == true then
-        state = "title"
+        state = "menu"
         isPause = false
     end
 end
 
 function love.update(dt)
     -- movement function
-    if isPause == false and isFail == false then
+    if isPause == false and isFail == false and state == "game" then
         if love.keyboard.isDown("a") then
-            p1.x = p1.x - 7
-            b1.x = b1.x - 7
+            p1.x = p1.x - p1.v * dt
+            b1.x = b1.x - b1.vx * dt
         elseif love.keyboard.isDown("d") then
-            p1.x = p1.x + 7
-            b1.x = b1.x + 7
+            p1.x = p1.x + p1.v * dt
+            b1.x = b1.x + b1.vx * dt
         end
         -- increase speed by 3 pixels when "k" key is held
         if love.keyboard.isDown("a") and love.keyboard.isDown("k") then
-            p1.x = p1.x - 2
-            b1.x = b1.x - 2
+            p1.x = p1.x - 200 * dt
+            b1.x = b1.x - 200 * dt
         elseif love.keyboard.isDown("d") and love.keyboard.isDown("k") then
-            p1.x = p1.x + 2
-            b1.x = b1.x + 2
+            p1.x = p1.x + 200 * dt
+            b1.x = b1.x + 200 * dt
         end
     -- freeze movement if paused
     elseif isPause == true or isFail == true then
         pauseButtonHover()
     end
+
     -- for testing purposes
     if love.keyboard.isDown("space") then
         scoreVal = scoreVal + 100
     end
+    
     -- hi score code
     if state == "game" then
         score()
     end
-    -- open fail screen when all lifes lost
+
+    -- open fail screen when all lives lost
     lifeFail()
+    
+    if state == "menu" then
+        menuButtonHover()
+    end
+
     -- text hover effect in fail screen
     if isFail == true then
         failButtonHover()
     end
+
+
+    -- text blink effect in title screen
+    if state == "title" then
+        b:update(dt)
+        bf:update(dt)
+    else
+    end
 end
 
 function love.draw()
-    -- draw background
-    love.graphics.draw(bg, 0, 0)
     states()
     debugMn()
+end
+
+local love_errorhandler = love.errorhandler
+
+function love.errorhandler(msg)
+    if lldebugger then
+        error(msg, 2)
+    else
+        return love_errorhandler(msg)
+    end
 end

@@ -1,29 +1,21 @@
 require("lua.defaults")
-local bump = require("lua.bump")
+local bump = require("lib.bump")
+
+local world = bump.newWorld(64)
 
 function hitbox()
-    -- pad hitbox
-    love.graphics.rectangle("line", p1.x, p1.y, p1.width, p1.height)    
-    -- ball hitbox
-    love.graphics.rectangle("line", b1.x, b1.y, b1.width, b1.height)
-
     -- hitbox names
     local pad = {name="pad"}
     local ball = {name="ball"}
     local borderLeft = {name="borderL"}
     local borderRight = {name="borderR"}
 
-    local world = bump.newWorld(64)
-
     -- hitboxes
     -- pad
     world:add(pad, p1.x, p1.y, p1.width, p1.height)
     -- borders
-    world:add(borderLeft, bL.x1, bL.y1, 2, bL.y2)
-    world:add(borderRight, bR.x1, bR.y1, 2, bR.y2)
-
-    -- wip: check hitboxes
-    world:check(pad)
+    world:add(borderLeft, bL.x1 - 4, bL.y1, 4, bL.y2)
+    world:add(borderRight, bR.x1, bR.y1, 4, bR.y2)
 end
 
 --TODO: Finish collision system

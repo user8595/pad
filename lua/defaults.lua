@@ -1,4 +1,6 @@
 -- fonts
+titleFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 28)
+menuFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 24)
 largeFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 18)
 textFont = love.graphics.newFont("/assets/PixeloidSans.ttf", 14)
 subFont = love.graphics.newFont("/assets/Picopixel.ttf", 14)
@@ -10,13 +12,13 @@ winHeight = love.graphics.getHeight()
 -- default game states
 -- "title", "game"
 state = "title"
-debugMenu = "none"
+debugMenu = false
 isFail = false
 isPause = false
---TODO: Add about/credits scene
-isCredits = false
---TODO: Add controls help scene
-isControlsHelp = false
+--TODO: Add about scene
+isAbout = false
+--TODO: Add help scene
+isHelp = false
 
 -- border left
 bL = {
@@ -38,16 +40,23 @@ bR = {
 p1 = {
     x = 290,
     y = 420,
-    width = 60,
-    height = 10
+    v = 500,
+    col = 0,
+    len = 0,
+    width = 64,
+    height = 16
 }
 
 -- ball
 b1 = {
     x = 326,
-    y = 413,
-    width = 5,
-    height = 5
+    y = 412,
+    vx = 500,
+    vy = 500,
+    col = 0,
+    len = 0,
+    width = 8,
+    height = 8
 }
 
 -- statistics
@@ -57,8 +66,8 @@ scoreVal = 0
 hiScoreVal = 0
 -- level
 levelVal = 1
--- lifes
-lifesVal = 2
+-- lives
+livesVal = 2
 -- highscores for save function
 highScores = {}
 
@@ -75,6 +84,12 @@ uiText = {
     1,
     1
 }
+uiElement = {
+    0.75,
+    0.75,
+    0.75,
+    1
+}
 uiColor = {
     1,
     1,
@@ -82,8 +97,14 @@ uiColor = {
     1
 }
 boardBg = {
-    0.05,
+    0,
     0.01,
     0,
     0.25
+}
+textBlink = {
+    1,
+    1,
+    1,
+    1
 }

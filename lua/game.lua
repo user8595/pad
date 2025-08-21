@@ -1,14 +1,15 @@
 require("lua.defaults")
+require("lua.textures")
 
 -- reset stats
 function init()
     p1.x = 290
     p1.y = 420
     b1.x = 326
-    b1.y = 413
+    b1.y = 412
     scoreVal = 0
     levelVal = 1
-    lifesVal = 2
+    livesVal = 2
 end
 
 -- reset when lose life
@@ -16,7 +17,7 @@ function initLife()
     p1.x = 290
     p1.y = 420
     b1.x = 326
-    b1.y = 413
+    b1.y = 412
 end
 
 -- game states
@@ -24,30 +25,53 @@ function states()
     -- game state function
     if state == "title" then
         title()
+    elseif state == "menu" then
+        menu()
     elseif state == "game" then
+        backgrounds()
         ui()
         hitbox()
+        gameTexture()
     end
-    if isFail == true then
+    
+    
+    -- show fail screen
+    if isFail == true and state == "game" then
         isPause = false
         failUI()
         if scoreVal >= hiScoreVal then
             saveFile()
         end
     end
-    if isPause == true then
+
+    -- show pause screen
+    if isPause == true and state == "game" then
         pauseUI()
     else
-        return
+    end
+
+    -- show about or help screen
+    if isHelp == true and state == "menu" then
+        help()
+    elseif isAbout == true and state == "menu" then
+        about()
+    else
     end
 end
 
 function debugMn()
     -- draw debug menu if f4 key is pressed
-    if debugMenu == "debug" then
+    if debugMenu == true then
         debugUI()
+        -- show hitboxes when debug menu is enabled
+        if state == "game" then
+            -- pad hitbox
+            love.graphics.rectangle("line", p1.x, p1.y, p1.width, p1.height)    
+            -- ball hitbox
+            love.graphics.rectangle("line", b1.x, b1.y, b1.width, b1.height)        
+        elseif debugMenu == false then
+        end
     else
-        return
     end
 end
 
@@ -63,8 +87,8 @@ end
 
 -- life lost code
 function lifeFail()
-    if lifesVal <= -1 then
-        lifesVal = 0
+    if livesVal <= -1 then
+        livesVal = 0
         isFail = true
     end
 end
