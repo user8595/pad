@@ -33,8 +33,7 @@ function states()
         hitbox()
         gameTexture()
     end
-    
-    
+
     -- show fail screen
     if isFail == true and state == "game" then
         isPause = false
@@ -51,9 +50,9 @@ function states()
     end
 
     -- show about or help screen
-    if isHelp == true and state == "menu" then
+    if isHelp == true then
         help()
-    elseif isAbout == true and state == "menu" then
+    elseif isAbout == true then
         about()
     else
     end

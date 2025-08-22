@@ -1,6 +1,9 @@
 require("lua.defaults")
 require("lua.textures")
 local cron = require("lib.cron")
+-- default popup variables
+local popupW = winWidth / 2
+local popupH = winHeight / 2
 
 -- text blinking effect in title screen
 function titleBlink()
@@ -41,9 +44,40 @@ end
 -- help screen
 function help()
     love.graphics.draw(oPixel, 0, 0, 0, winWidth, winHeight)
-    love.graphics.print("TODO: Finish help page", subFont, 10, 455)
-    love.graphics.print("ESC to close", subFont, 10, 440)
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("fill", popupW - 173, popupH - 97, 350, 220)
+    love.graphics.setColor(uiText)
+    love.graphics.rectangle("line", popupW - 173, popupH - 97, 350, 220)
 
+    love.graphics.print("Controls", largeFont, popupW - 159, popupH - 86)
+    love.graphics.draw(ap, popupW - 145, popupH - 45)
+    love.graphics.draw(dp, popupW - 85, popupH - 45)
+    love.graphics.draw(kp, popupW - 145, popupH + 30)
+    love.graphics.print("Move paddle", textFont, popupW - 140, popupH + 7)
+    love.graphics.print("Speed up paddle movement", textFont, popupW - 140, popupH + 82)
+    love.graphics.print({uiSubText, "ESC to close"}, subFont, popupW - 40, popupH + 135)
+end
+
+function helpKeys()
+    kp = keyK
+    ap = keyA
+    dp = keyD
+    if love.keyboard.isDown("k") then
+        kp = keyKp
+    else
+        ky = keyK
+    end
+    
+    if love.keyboard.isDown("a") then
+        ap = keyAp
+    else
+        ap = keyA
+    end
+    if love.keyboard.isDown("d") then
+        dp = keyDp
+    else
+        dp = keyD
+    end
 end
 
 -- about screen
@@ -51,7 +85,6 @@ function about()
     love.graphics.draw(oPixel, 0, 0, 0, winWidth, winHeight)
     love.graphics.print("TODO: Finish about page", subFont, 10, 455)
     love.graphics.print("ESC to close", subFont, 10, 440)
-
 end
 
 -- game ui
@@ -85,9 +118,6 @@ function ui()
     love.graphics.draw(lifeicon, bR.x1 + 15, 124, 0, 0.5, 0.5)
 end
 
--- default popup variables
-local popupW = winWidth / 2
-local popupH = winHeight / 2
 -- for fail screen only
 popupButtonX1 = popupW - 21
 popupButtonY1 = popupH + 24

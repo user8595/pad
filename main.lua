@@ -158,7 +158,10 @@ function love.update(dt)
 
     -- open fail screen when all lives lost
     lifeFail()
-    
+    if isHelp == true then
+        helpKeys()
+    end
+
     if state == "menu" then
         menuButtonHover()
     end
@@ -167,7 +170,6 @@ function love.update(dt)
     if isFail == true then
         failButtonHover()
     end
-
 
     -- text blink effect in title screen
     if state == "title" then
