@@ -53,6 +53,7 @@ function help()
     love.graphics.draw(ap, popupW - 145, popupH - 45)
     love.graphics.draw(dp, popupW - 85, popupH - 45)
     love.graphics.draw(kp, popupW - 145, popupH + 30)
+    --TODO: Add pause key
     love.graphics.print("Move paddle", textFont, popupW - 140, popupH + 7)
     love.graphics.print("Speed up paddle movement", textFont, popupW - 140, popupH + 82)
     love.graphics.print({uiSubText, "ESC to close"}, subFont, popupW - 40, popupH + 135)
