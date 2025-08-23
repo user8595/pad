@@ -35,6 +35,8 @@ function love.keypressed(key, isrepeat)
     elseif key == "escape" and state == "game" and isPause == false and isFail == false then
         isPause = true
         menuButton = -1
+    elseif key == "escape" and state == "game" and isPause == true and isFail == false then
+        isPause = false
     -- close game when escape is pressed in fail screen
     elseif key == "escape" and state == "game" and isFail == true then
         isFail = false
