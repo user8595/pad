@@ -116,6 +116,7 @@ function love.keypressed(key, isrepeat)
     end
     
     -- text hover for keyboard navigation
+    -- arrow keys
     if key == "up" and isAbout == false and isHelp == false then
         menuButton = menuButton - 1
     elseif key == "down" and isAbout == false and isHelp == false then
@@ -145,6 +146,40 @@ function love.keypressed(key, isrepeat)
     if key == "up" and menuButton < 1 and state == "game" and isFail == true then
         menuButton = 2
     elseif key == "down" and menuButton > 2 and state == "game" and isFail == true then
+        menuButton = 1
+    end
+
+    -- "w" and "s" keys
+    -- bad code?
+    if key == "w" and isAbout == false and isHelp == false then
+        menuButton = menuButton - 1
+    elseif key == "s" and isAbout == false and isHelp == false then
+        menuButton = menuButton + 1
+    end
+
+    -- set to first button
+    if key == "s" and menuButton == 0 then
+        menuButton = 1
+    end
+
+    -- menu screen
+    if key == "w" and menuButton < 1 and state == "menu" then
+        menuButton = 4
+    elseif key == "s" and menuButton > 4 and state == "menu" then
+        menuButton = 1
+    end
+
+    -- pause screen
+    if key == "w" and menuButton < 1 and state == "game" and isPause == true then
+        menuButton = 3
+    elseif key == "s" and menuButton > 3 and state == "game" and isPause == true then
+        menuButton = 1
+    end
+
+    -- fail screen
+    if key == "w" and menuButton < 1 and state == "game" and isFail == true then
+        menuButton = 2
+    elseif key == "s" and menuButton > 2 and state == "game" and isFail == true then
         menuButton = 1
     end
 
