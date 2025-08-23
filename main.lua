@@ -4,6 +4,8 @@ require("lua.collision")
 require("lua.save")
 require("lua.game")
 
+-- i realized that i'm bad at this game
+
 -- open debugger if launched in debug mode
 if arg[2] == "debug" then
     require("lldebugger").start()
@@ -21,8 +23,9 @@ function love.keypressed(key, isrepeat)
     if key == "escape" and state == "title" and isPause == false and isFail == false then
         love.event.quit()
     -- exit to title screen when escape is pressed in main menu
-    elseif key == "escape" and state == "menu" and isPause == false and isFail == false and isAbout == false and isHelp == false then
+    elseif key == "escape" and state == "menu" and isAbout == false and isHelp == false then
         state = "title"
+        menuButton = -1
     -- when pressed in about screen, exit to menu
     elseif key == "escape" and isPause == false and isFail == false and isAbout == true then
         isAbout = false
@@ -31,28 +34,27 @@ function love.keypressed(key, isrepeat)
     -- pause game if escape is pressed
     elseif key == "escape" and state == "game" and isPause == false and isFail == false then
         isPause = true
-    -- close game when escape is pressed in pause menu or in fail screen
+        menuButton = -1
+    -- close game when escape is pressed in fail screen
     elseif key == "escape" and state == "game" and isFail == true then
         isFail = false
         isPause = false
         state = "menu"
         hiScoreVal = highScores[1]
-    elseif key == "escape" and state == "game" and isPause == true then
-        isFail = false
-        isPause = false
-        state = "menu"
-        hiScoreVal = highScores[1]
+        menuButton = -1
     end
 
     -- toggle pause menu if "p" key is pressed
     if key == "p" and state == "game" and isFail == false and isPause == false then
         isPause = true
+        menuButton = -1
     elseif key == "p" and isPause == true and state == "game" and isFail == false then
         isPause = false
     end
 
     -- open main menu
     if key == "return" and state == "title" then
+        menuButton = -1
         state = "menu"
     end
 
@@ -63,11 +65,13 @@ function love.keypressed(key, isrepeat)
         debugMenu = false
     end
 
-    -- trigger fail state
+    -- trigger fail screen
     if key == "f" and state == "game" then
         isFail = true
+        menuButton = -1
     end
     
+    -- menu keyboard function
     if key == "return" and menuButton == 1 and state == "menu" and isAbout == false and isHelp == false then
         state = "game"
         init()
@@ -81,22 +85,74 @@ function love.keypressed(key, isrepeat)
     if key == "return" and menuButton == 4 and state == "menu" and isAbout == false and isHelp == false then
         love.event.quit()
     end
+
+    -- pause keyboard function
+    if key == "return" and menuButton == 1 and state == "game" and isPause == true then
+        isPause = false
+    elseif key == "return" and menuButton == 2 and state == "game" and isPause == true then
+        state = "game"
+        isPause = false
+        init()
+    elseif key == "return" and menuButton == 3 and state == "game" and isPause == true then
+        isFail = false
+        isPause = false
+        state = "menu"
+        hiScoreVal = highScores[1]
+        menuButton = -1
+    end
+    
+    -- fail screen keyboard function
+    if key == "return" and menuButton == 1 and state == "game" and isFail == true then
+        state = "game"
+        isFail = false
+        init()
+    elseif key == "return" and menuButton == 2 and state == "game" and isFail == true then
+        isFail = false
+        state = "menu"
+        if scoreVal >= hiScoreVal then
+            saveFile()
+        end
+        menuButton = -1
+    end
     
     -- text hover for keyboard navigation
-    if key == "down" and state == "menu" and menuButton == -1 then
-        menuButton = menuButton + 2
-    elseif key == "down" and state == "menu" then
-        menuButton = menuButton + 1
-    elseif key == "up" and state == "menu" then
+    if key == "up" and isAbout == false and isHelp == false then
         menuButton = menuButton - 1
+    elseif key == "down" and isAbout == false and isHelp == false then
+        menuButton = menuButton + 1
+    end
+
+    -- set to first button
+    if key == "down" and menuButton == 0 then
+        menuButton = 1
+    end
+
+    -- menu screen
+    if key == "up" and menuButton < 1 and state == "menu" then
+        menuButton = 4
+    elseif key == "down" and menuButton > 4 and state == "menu" then
+        menuButton = 1
+    end
+
+    -- pause screen
+    if key == "up" and menuButton < 1 and state == "game" and isPause == true then
+        menuButton = 3
+    elseif key == "down" and menuButton > 3 and state == "game" and isPause == true then
+        menuButton = 1
+    end
+
+    -- fail screen
+    if key == "up" and menuButton < 1 and state == "game" and isFail == true then
+        menuButton = 2
+    elseif key == "down" and menuButton > 2 and state == "game" and isFail == true then
+        menuButton = 1
     end
 
     -- reduce health (for testing)
-    if key == "down" and state == "game" then
+    if key == "down" and state == "game" and isPause == false and isFail == false then
         livesVal = livesVal - 1
         initLife()
     end
-
 end
 
 function love.mousepressed(x, y, button)
@@ -129,18 +185,19 @@ function love.mousepressed(x, y, button)
         if scoreVal >= hiScoreVal then
             saveFile()
         end
+        menuButton = -1
     end
 
     -- pause screen
     -- resume button
     if button == 1 and x >= pauseX1 and x <= pauseX1 + 72 and y >= pauseY1 and y <= pauseY1 + 17 and isPause == true then
         isPause = false
-        -- restart button
+    -- restart button
     elseif button == 1 and x >= pauseX2 and x <= pauseX2 + 72 and y >= pauseY2 and y <= pauseY2 + 17 and isPause == true then
         state = "game"
         isPause = false
         init()
-        -- exit button
+    -- exit button
     elseif button == 1 and x >= pauseX3 and x <= pauseX3 + 34 and y >= pauseY3 and y <= pauseY3 + 17 and isPause == true then
         state = "menu"
         isPause = false
@@ -158,12 +215,17 @@ function love.update(dt)
             b1.x = b1.x + b1.vx * dt
         end
         -- increase speed by 3 pixels when "k" key is held
-        if love.keyboard.isDown("a") and love.keyboard.isDown("k") then
-            p1.x = p1.x - 200 * dt
-            b1.x = b1.x - 200 * dt
-        elseif love.keyboard.isDown("d") and love.keyboard.isDown("k") then
-            p1.x = p1.x + 200 * dt
-            b1.x = b1.x + 200 * dt
+        if love.keyboard.isDown("k") then
+            paddleSpeedUp = true
+            if love.keyboard.isDown("a") then 
+                p1.x = p1.x - 400 * dt
+                b1.x = b1.x - 400 * dt
+            elseif love.keyboard.isDown("d") then
+                p1.x = p1.x + 400 * dt
+                b1.x = b1.x + 400 * dt
+            end
+        else
+            paddleSpeedUp = false
         end
     -- freeze movement if paused
     elseif isPause == true or isFail == true then
@@ -185,16 +247,20 @@ function love.update(dt)
     if isHelp == true then
         helpKeys()
     end
-
+    
+    -- text hover effect in menu screen
     if state == "menu" then
         menuButtonHover()
     end
-
+    
     -- text hover effect in fail screen
     if isFail == true then
         failButtonHover()
     end
-
+    
+    -- keyboard navigation
+    keyHover()
+    
     -- text blink effect in title screen
     if state == "title" then
         b:update(dt)

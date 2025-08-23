@@ -17,9 +17,9 @@ isFail = false
 isPause = false
 --TODO: Add about scene
 isAbout = false
---TODO: Add help scene
 isHelp = false
 
+-- button highlight value
 menuButton = -1
 
 -- border left
@@ -42,19 +42,23 @@ bR = {
 p1 = {
     x = 290,
     y = 420,
-    v = 500,
+    v = 600,
     col = 0,
     len = 0,
     width = 64,
     height = 16
 }
 
+-- paddle speed up texture boolean
+-- antager
+paddleSpeedUp = false
+
 -- ball
 b1 = {
     x = 326,
     y = 412,
-    vx = 500,
-    vy = 500,
+    vx = 600,
+    vy = 600,
     col = 0,
     len = 0,
     width = 8,
@@ -70,7 +74,7 @@ hiScoreVal = 0
 levelVal = 1
 -- lives
 livesVal = 2
--- highscores for save function
+-- highscores table for save function
 highScores = {}
 
 -- color

@@ -89,5 +89,6 @@ function lifeFail()
     if livesVal <= -1 and state == "game" then
         livesVal = 0
         isFail = true
+        menuButton = -1
     end
 end

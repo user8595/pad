@@ -130,6 +130,7 @@ popupButtonY1 = popupH + 24
 popupButtonX2 = popupW - 12
 popupButtonY2 = popupH + 49
 -- hover text
+-- bad code?
 buttonColor1 = {0.75, 0.75, 0.75, 1}
 buttonColor2 = {0.75, 0.75, 0.75, 1}
 buttonColor3 = {0.75, 0.75, 0.75, 1}
@@ -157,7 +158,6 @@ function pauseUI()
     love.graphics.rectangle("line", popupW - 42 , popupH - 35, 93, 30)
     -- pause text
     love.graphics.print({uiText, "Paused"}, largeFont, popupW - 30, popupH - 30)
-    love.graphics.print({uiSubText, "ESC to menu"}, subFont, popupW - 40, winHeight - 20)
     -- resume text
     love.graphics.print({buttonColor1, "Resume"}, largeFont, pauseX1, pauseY1)
     -- restart text
@@ -185,6 +185,19 @@ function failUI()
     love.graphics.print({buttonColor1, "Retry"}, largeFont, popupButtonX1, popupButtonY1)
     love.graphics.print({buttonColor2, "Quit"}, largeFont, popupButtonX2, popupButtonY2)
 end
+
+function keyHover()
+    -- keyboard navigation
+    if menuButton == 1 then
+        buttonColor1 = {1, 1, 1, 1}
+    elseif menuButton == 2 then
+        buttonColor2 = {1, 1, 1, 1}
+    elseif menuButton == 3 then
+        buttonColor3 = {1, 1, 1, 1}
+    elseif menuButton == 4 then
+        buttonColor4 = {1, 1, 1, 1}
+    end
+end 
 
 -- lighten text on button hover
 function menuButtonHover()
@@ -218,21 +231,6 @@ function menuButtonHover()
     else
         buttonColor4 = {0.75, 0.75, 0.75, 1}
     end
-    
-    -- keyboard navigation
-    if menuButton == 1 and state == "menu" and isAbout == false and isHelp == false then
-        buttonColor1 = {1, 1, 1, 1}
-    elseif menuButton == 2 and state == "menu" and isAbout == false and isHelp == false then
-        buttonColor2 = {1, 1, 1, 1}
-    elseif menuButton == 3 and state == "menu" and isAbout == false and isHelp == false then
-        buttonColor3 = {1, 1, 1, 1}
-    elseif menuButton == 4 and state == "menu" and isAbout == false and isHelp == false then
-        buttonColor4 = {1, 1, 1, 1}
-    elseif menuButton > 4 and state == "menu" and isAbout == false and isHelp == false then
-        menuButton = 1
-    elseif menuButton == 0 and state == "menu" and isAbout == false and isHelp == false and love.keyboard.isDown("up") then
-        menuButton = 4
-    end
 end
     
 function failButtonHover()
@@ -241,12 +239,14 @@ function failButtonHover()
     -- retry button
     if x >= popupButtonX1 and x <= popupButtonX1 + 52 and y >= popupButtonY1 and y <= popupButtonY1 + 22 and isFail == true then
         buttonColor1 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
     if x >= popupButtonX2 and x <= popupButtonX2 + 34 and y >= popupButtonY2 and y <= popupButtonY2 + 22 and isFail == true then
         buttonColor2 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
     end
@@ -258,18 +258,21 @@ function pauseButtonHover()
     -- resume button
     if x >= pauseX1 and x <= pauseX1 + 72 and y >= pauseY1 and y <= pauseY1 + 17 and isPause == true then
         buttonColor1 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- restart button
     if x >= pauseX2 and x <= pauseX2 + 72 and y >= pauseY2 and y <= pauseY2 + 17 and isPause == true then
         buttonColor2 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
     if x >= pauseX3 and x <= pauseX3 + 34 and y >= pauseY3 and y <= pauseY3 + 19 and isPause == true then
         buttonColor3 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor3 = {0.75, 0.75, 0.75, 1}
     end

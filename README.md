@@ -14,7 +14,7 @@ Very incomplete.
 * A/D: Move paddle
 * K: Increase paddle speed when held
 * F4: Open debug menu
-* P/Esc: Pause game (doesn't pause game yet)
+* P: Pause game
 * F (for testing): Trigger game over scene
 * Space (for testing): Add 100 points to score
 * Down arrow (for testing): Reduce lives by 1

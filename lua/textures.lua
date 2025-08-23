@@ -10,21 +10,22 @@ bgGame = love.graphics.newImage("/assets/textures/bg_game.png")
 mPixel = love.graphics.newImage("/assets/textures/menu_pixel.png")
 oPixel = love.graphics.newImage("/assets/textures/overlay_pixel.png")
 
-paddle = love.graphics.newImage("/assets/textures/paddle.png")
-ball = love.graphics.newImage("/assets/textures/ball.png")
-lifeicon = love.graphics.newImage("/assets/textures/lifeicon.png")
+paddle = love.graphics.newImage("/assets/textures/game/paddle.png")
+paddleOutline = love.graphics.newImage("/assets/textures/game/paddle_outline.png")
+ball = love.graphics.newImage("/assets/textures/game/ball.png")
+lifeicon = love.graphics.newImage("/assets/textures/game/lifeicon.png")
 
-keyA = love.graphics.newImage("/assets/textures/a.png")
-keyAp = love.graphics.newImage("/assets/textures/a_press.png")
+keyA = love.graphics.newImage("/assets/textures/menu/a.png")
+keyAp = love.graphics.newImage("/assets/textures/menu/a_press.png")
 
-keyD = love.graphics.newImage("/assets/textures/d.png")
-keyDp = love.graphics.newImage("/assets/textures/d_press.png")
+keyD = love.graphics.newImage("/assets/textures/menu/d.png")
+keyDp = love.graphics.newImage("/assets/textures/menu/d_press.png")
 
-keyK = love.graphics.newImage("/assets/textures/k.png")
-keyKp = love.graphics.newImage("/assets/textures/k_press.png")
+keyK = love.graphics.newImage("/assets/textures/menu/k.png")
+keyKp = love.graphics.newImage("/assets/textures/menu/k_press.png")
 
-keyP = love.graphics.newImage("/assets/textures/p.png")
-keyPp = love.graphics.newImage("/assets/textures/p_press.png")
+keyP = love.graphics.newImage("/assets/textures/menu/p.png")
+keyPp = love.graphics.newImage("/assets/textures/menu/p_press.png")
 
 kp = keyK
 ap = keyA
@@ -42,5 +43,10 @@ end
 -- game texture
 function gameTexture()
     love.graphics.draw(paddle, p1.x, p1.y)
+    -- draw outline if "k" key is held
+    if paddleSpeedUp == true then
+        love.graphics.draw(paddleOutline, p1.x - 2, p1.y - 2)
+    elseif paddleSpeedUp == false then
+    end
     love.graphics.draw(ball, b1.x, b1.y)
 end
