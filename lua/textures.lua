@@ -23,6 +23,14 @@ keyDp = love.graphics.newImage("/assets/textures/d_press.png")
 keyK = love.graphics.newImage("/assets/textures/k.png")
 keyKp = love.graphics.newImage("/assets/textures/k_press.png")
 
+keyP = love.graphics.newImage("/assets/textures/p.png")
+keyPp = love.graphics.newImage("/assets/textures/p_press.png")
+
+kp = keyK
+ap = keyA
+dp = keyD
+pp = keyP
+
 -- background
 function backgrounds()
     love.graphics.draw(bgGame, 0, 0)

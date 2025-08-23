@@ -86,7 +86,7 @@ end
 
 -- life lost code
 function lifeFail()
-    if livesVal <= -1 then
+    if livesVal <= -1 and state == "game" then
         livesVal = 0
         isFail = true
     end

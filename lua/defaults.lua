@@ -20,6 +20,8 @@ isAbout = false
 --TODO: Add help scene
 isHelp = false
 
+menuButton = -1
+
 -- border left
 bL = {
     x1 = 151,

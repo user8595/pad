@@ -64,31 +64,55 @@ function love.keypressed(key, isrepeat)
     end
 
     -- trigger fail state
-    if key == "f" then
+    if key == "f" and state == "game" then
         isFail = true
     end
+    
+    if key == "return" and menuButton == 1 and state == "menu" and isAbout == false and isHelp == false then
+        state = "game"
+        init()
+    end
+    if key == "return" and menuButton == 2 and state == "menu" and isAbout == false and isHelp == false then
+        isHelp = true
+    end
+    if key == "return" and menuButton == 3 and state == "menu" and isAbout == false and isHelp == false then
+        isAbout = true
+    end
+    if key == "return" and menuButton == 4 and state == "menu" and isAbout == false and isHelp == false then
+        love.event.quit()
+    end
+    
+    -- text hover for keyboard navigation
+    if key == "down" and state == "menu" and menuButton == -1 then
+        menuButton = menuButton + 2
+    elseif key == "down" and state == "menu" then
+        menuButton = menuButton + 1
+    elseif key == "up" and state == "menu" then
+        menuButton = menuButton - 1
+    end
 
-    -- reduce health
-    if key == "down" then
+    -- reduce health (for testing)
+    if key == "down" and state == "game" then
         livesVal = livesVal - 1
         initLife()
     end
+
 end
 
 function love.mousepressed(x, y, button)
     -- main menu screen
     -- play button
-    if button == 1 and x >= 303 and x <= 341 and y >= 240 and y <= 264 and state == "menu" then
+    if button == 1 and x >= 303 and x <= 341 and y >= 240 and y <= 264 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         state = "game"
         init()
     -- help button
-    elseif button == 1 and x >= 303 and x <= 340 and y >= 266 and y <= 288 and state == "menu" then
+    elseif button == 1 and x >= 303 and x <= 340 and y >= 266 and y <= 288 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         isHelp = true
     -- about button
-    elseif button == 1 and x >= 295 and x <= 348 and y >= 292 and y <= 316 and state == "menu" then
+    elseif button == 1 and x >= 295 and x <= 348 and y >= 292 and y <= 316 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         isAbout = true
     -- exit button
-    elseif button == 1 and x >= 277 and x <= 368 and y >= 318 and y <= 342 and state == "menu" then
+    elseif button == 1 and x >= 277 and x <= 368 and y >= 318 and y <= 342 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         love.event.quit()
     end
 

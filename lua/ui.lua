@@ -45,28 +45,28 @@ end
 function help()
     love.graphics.draw(oPixel, 0, 0, 0, winWidth, winHeight)
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.rectangle("fill", popupW - 173, popupH - 97, 350, 220)
+    love.graphics.rectangle("fill", popupW - 173, popupH - 145, 350, 300)
     love.graphics.setColor(uiText)
-    love.graphics.rectangle("line", popupW - 173, popupH - 97, 350, 220)
+    love.graphics.rectangle("line", popupW - 173, popupH - 145, 350, 300)
 
-    love.graphics.print("Controls", largeFont, popupW - 159, popupH - 86)
-    love.graphics.draw(ap, popupW - 145, popupH - 45)
-    love.graphics.draw(dp, popupW - 85, popupH - 45)
-    love.graphics.draw(kp, popupW - 145, popupH + 30)
-    --TODO: Add pause key
-    love.graphics.print("Move paddle", textFont, popupW - 140, popupH + 7)
-    love.graphics.print("Speed up paddle movement", textFont, popupW - 140, popupH + 82)
-    love.graphics.print({uiSubText, "ESC to close"}, subFont, popupW - 40, popupH + 135)
+    love.graphics.print("Controls", largeFont, popupW - 159, popupH - 135)
+    love.graphics.draw(ap, popupW - 145, popupH - 105)
+    love.graphics.draw(dp, popupW - 85, popupH - 105)
+    love.graphics.draw(kp, popupW - 145, popupH - 29)
+    love.graphics.draw(pp, popupW - 145, popupH + 65)
+
+    love.graphics.print("Move paddle", textFont, popupW - 140, popupH - 53)
+    love.graphics.print("Speed up paddle\nmovement", textFont, popupW - 140, popupH + 23)
+    love.graphics.print("Pause game", textFont, popupW - 140, popupH + 120)
+    love.graphics.print({uiSubText, "ESC to close"}, subFont, popupW - 40, popupH + 167)
 end
 
+-- key pressed animation in help screen
 function helpKeys()
-    kp = keyK
-    ap = keyA
-    dp = keyD
     if love.keyboard.isDown("k") then
         kp = keyKp
     else
-        ky = keyK
+        kp = keyK
     end
     
     if love.keyboard.isDown("a") then
@@ -78,6 +78,11 @@ function helpKeys()
         dp = keyDp
     else
         dp = keyD
+    end
+    if love.keyboard.isDown("p") then
+        pp = keyPp
+    else
+        pp = keyP
     end
 end
 
@@ -186,28 +191,47 @@ function menuButtonHover()
     local x = love.mouse.getX()
     local y = love.mouse.getY()
     -- play button
-    if x >= 303 and x <= 341 and y >= 240 and y <= 264 and state == "menu" then
+    if x >= 303 and x <= 341 and y >= 240 and y <= 264 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor1 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- help button
-    if x >= 303 and x <= 340 and y >= 266 and y <= 288 and state == "menu" then
+    if x >= 303 and x <= 340 and y >= 266 and y <= 288 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor2 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
     end
     -- about button
-    if x >= 295 and x <= 348 and y >= 292 and y <= 316 and state == "menu" then
+    if x >= 295 and x <= 348 and y >= 292 and y <= 316 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor3 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor3 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
-    if x >= 277 and x <= 368 and y >= 318 and y <= 342 and state == "menu" then
+    if x >= 277 and x <= 368 and y >= 318 and y <= 342 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor4 = {1, 1, 1, 1}
+        menuButton = -1
     else
         buttonColor4 = {0.75, 0.75, 0.75, 1}
+    end
+    
+    -- keyboard navigation
+    if menuButton == 1 and state == "menu" and isAbout == false and isHelp == false then
+        buttonColor1 = {1, 1, 1, 1}
+    elseif menuButton == 2 and state == "menu" and isAbout == false and isHelp == false then
+        buttonColor2 = {1, 1, 1, 1}
+    elseif menuButton == 3 and state == "menu" and isAbout == false and isHelp == false then
+        buttonColor3 = {1, 1, 1, 1}
+    elseif menuButton == 4 and state == "menu" and isAbout == false and isHelp == false then
+        buttonColor4 = {1, 1, 1, 1}
+    elseif menuButton > 4 and state == "menu" and isAbout == false and isHelp == false then
+        menuButton = 1
+    elseif menuButton == 0 and state == "menu" and isAbout == false and isHelp == false and love.keyboard.isDown("up") then
+        menuButton = 4
     end
 end
     
@@ -266,13 +290,16 @@ function debugUI()
     -- current scene
     love.graphics.print({uiText, "scene: " .. state}, subFont, 10, 85)
     -- current popup scene
+    local yPopPos = 115
     if isFail == true then
-        love.graphics.print({uiText, "isFail"}, subFont, 10, 100)
+        love.graphics.print({uiText, "isFail"}, subFont, 10, yPopPos)
     elseif isPause == true then
-        love.graphics.print({uiText, "isPause"}, subFont, 10, 100)
+        love.graphics.print({uiText, "isPause"}, subFont, 10, yPopPos)
     elseif isAbout == true then
-        love.graphics.print({uiText, "isAbout"}, subFont, 10, 100)
+        love.graphics.print({uiText, "isAbout"}, subFont, 10, yPopPos)
     elseif isHelp == true then
-        love.graphics.print({uiText, "isHelp"}, subFont, 10, 100)
+        love.graphics.print({uiText, "isHelp"}, subFont, 10, yPopPos)
     end
+    -- current highlighted button
+    love.graphics.print({uiText, "menuButton: " .. menuButton}, subFont, 10, 100)
 end
