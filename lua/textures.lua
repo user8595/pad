@@ -32,6 +32,8 @@ ap = keyA
 dp = keyD
 pp = keyP
 
+pdO = oPixel
+
 -- background
 function backgrounds()
     love.graphics.draw(bgGame, 0, 0)
@@ -43,10 +45,10 @@ end
 -- game texture
 function gameTexture()
     love.graphics.draw(paddle, p1.x, p1.y)
-    -- draw outline if "k" key is held
+    love.graphics.draw(ball, b1.x, b1.y)
+    -- paddle speedup outline
     if paddleSpeedUp == true then
         love.graphics.draw(paddleOutline, p1.x - 2, p1.y - 2)
     elseif paddleSpeedUp == false then
     end
-    love.graphics.draw(ball, b1.x, b1.y)
 end

@@ -15,7 +15,6 @@ state = "title"
 debugMenu = false
 isFail = false
 isPause = false
---TODO: Add about scene
 isAbout = false
 isHelp = false
 

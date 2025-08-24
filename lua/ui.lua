@@ -89,8 +89,29 @@ end
 -- about screen
 function about()
     love.graphics.draw(oPixel, 0, 0, 0, winWidth, winHeight)
-    love.graphics.print("TODO: Finish about page", subFont, 10, 455)
-    love.graphics.print("ESC to close", subFont, 10, 440)
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("fill", popupW - 173, popupH - 145, 350, 300)
+    love.graphics.setColor(uiText)
+    love.graphics.rectangle("line", popupW - 173, popupH - 145, 350, 300)
+
+    love.graphics.printf("pad", titleFont, popupW - 175, popupH - 125, 350, "center")
+    love.graphics.printf({uiSubText, "A Breakout clone made in LÖVE."}, textFont, popupW - 173, popupH - 83, 350, "center")
+    love.graphics.draw(paddle, popupW - 33, popupH - 15)
+    love.graphics.draw(ball, popupW + 3, popupH - 23)
+    love.graphics.draw(pdO, popupW - 35, popupH - 17)
+    love.graphics.printf("Made this game as (somewhat) an\nintrodction to gamedev.", textFont, popupW - 173, popupH + 40, 350, "center")
+    love.graphics.printf({uiSubText, "Licensed under\nthe MIT License."}, textFont, popupW - 150, popupH + 100, 350, "left")
+    love.graphics.printf({uiSubText, "incomplete"}, textFont, popupW - 196, popupH + 115, 350, "right")
+    love.graphics.printf({uiSubText, "ESC to close"}, subFont, popupW - 174, popupH + 167, 350, "center")
+end
+
+-- about screen easter egg
+function aboutPad()
+    if love.keyboard.isDown("k")then
+        pdO = paddleOutline
+    else
+        pdO = oPixel
+    end
 end
 
 -- game ui
@@ -149,8 +170,7 @@ pauseY3 = popupH + 56
 -- pause ui
 function pauseUI()
     -- dark overlay
-    love.graphics.setColor(0, 0, 0, 0.65)
-    love.graphics.rectangle("fill", 0, 0, winWidth, winHeight)
+    love.graphics.draw(oPixel, 0, 0, 0, winWidth, winHeight)
     -- text frame
     love.graphics.setColor(0, 0, 0, 1)
     love.graphics.rectangle("fill", popupW - 42 , popupH - 35, 93, 30)

@@ -242,6 +242,7 @@ function love.mousepressed(x, y, button)
 end
 
 function love.update(dt)
+    
     -- movement function
     if isPause == false and isFail == false and state == "game" then
         if love.keyboard.isDown("a") then
@@ -264,7 +265,7 @@ function love.update(dt)
         else
             paddleSpeedUp = false
         end
-    -- freeze movement if paused
+        -- freeze movement if paused
     elseif isPause == true or isFail == true then
         pauseButtonHover()
     end
@@ -297,6 +298,9 @@ function love.update(dt)
     
     -- keyboard navigation
     keyHover()
+
+    -- about screen easter egg
+    aboutPad()
     
     -- text blink effect in title screen
     if state == "title" then
