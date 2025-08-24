@@ -37,6 +37,15 @@ bR = {
     y2 = winHeight
 }
 
+-- border top (hidden)
+bT = {
+    x = 151,
+    y = -2,
+    -- border right x1 - border left x1
+    w = bR.x1 - bL.x1,
+    h = 2
+}
+
 -- pad
 p1 = {
     x = 290,
@@ -56,13 +65,16 @@ paddleSpeedUp = false
 b1 = {
     x = 326,
     y = 412,
-    vx = 600,
-    vy = 600,
+    vx = 300,
+    vy = 300,
     col = 0,
     len = 0,
     width = 8,
     height = 8
 }
+
+-- boolean for when ball is launched
+isLaunched = false
 
 -- statistics
 -- score

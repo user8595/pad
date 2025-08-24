@@ -99,9 +99,9 @@ function about()
     love.graphics.draw(paddle, popupW - 33, popupH - 15)
     love.graphics.draw(ball, popupW + 3, popupH - 23)
     love.graphics.draw(pdO, popupW - 35, popupH - 17)
-    love.graphics.printf("Made this game as (somewhat) an\nintrodction to gamedev.", textFont, popupW - 173, popupH + 40, 350, "center")
+    love.graphics.printf("Made this game as (somewhat) an\nintrodction to programming in general.", textFont, popupW - 173, popupH + 40, 350, "center")
     love.graphics.printf({uiSubText, "Licensed under\nthe MIT License."}, textFont, popupW - 150, popupH + 100, 350, "left")
-    love.graphics.printf({uiSubText, "incomplete"}, textFont, popupW - 196, popupH + 115, 350, "right")
+    love.graphics.printf({uiSubText, "eightyfivenine\nincomplete"}, textFont, popupW - 196, popupH + 100, 350, "right")
     love.graphics.printf({uiSubText, "ESC to close"}, subFont, popupW - 174, popupH + 167, 350, "center")
 end
 

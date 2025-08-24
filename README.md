@@ -17,12 +17,11 @@ Very incomplete.
 * P/ESC: Pause/unpause game
 * F (for testing): Trigger game over screen
 * Space (for testing): Add 100 points to score
-* Down arrow (for testing): Reduce lives by 1
 
 ## TODO
 
-* Finish the collision system
-* Add ball "physics" functionality
+* Finish the collision system (partial)
+* Add ball "physics" functionality (patial)
 * Add scoring system (finished high score functionality)
 * Add lives functionality (partial?)
 * Add levels

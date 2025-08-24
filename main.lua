@@ -16,6 +16,7 @@ function love.load()
     newSaveFile()
     loadSaveFile()
     titleBlink()
+    hitboxInit()
 end
 
 function love.keypressed(key, isrepeat)
@@ -186,10 +187,10 @@ function love.keypressed(key, isrepeat)
     end
 
     -- reduce health (for testing)
-    if key == "down" and state == "game" and isPause == false and isFail == false then
-        livesVal = livesVal - 1
-        initLife()
-    end
+    -- if key == "down" and state == "game" and isPause == false and isFail == false then
+    --     livesVal = livesVal - 1
+    --     initLife()
+    -- end
 end
 
 function love.mousepressed(x, y, button)
@@ -242,32 +243,53 @@ function love.mousepressed(x, y, button)
 end
 
 function love.update(dt)
-    
     -- movement function
     if isPause == false and isFail == false and state == "game" then
-        if love.keyboard.isDown("a") then
-            p1.x = p1.x - p1.v * dt
-            b1.x = b1.x - b1.vx * dt
-        elseif love.keyboard.isDown("d") then
-            p1.x = p1.x + p1.v * dt
-            b1.x = b1.x + b1.vx * dt
+        -- if ball isn't launched, move ball along paddle
+        if isLaunched == false then
+            if love.keyboard.isDown("a") then
+                p1.x = p1.x - p1.v * dt
+                b1.x = b1.x - b1.vx * dt
+            elseif love.keyboard.isDown("d") then
+                p1.x = p1.x + p1.v * dt
+                b1.x = b1.x + b1.vx * dt
+            end
         end
-        -- increase speed by 3 pixels when "k" key is held
-        if love.keyboard.isDown("k") then
+        -- if ball is launched, don't move ball along paddle
+        if isLaunched == true then
+            b1.x = b1.x + b1.vx * dt
+            b1.y = b1.y + b1.vy * dt
+            if love.keyboard.isDown("a") then
+                p1.x = p1.x - p1.v * dt
+            elseif love.keyboard.isDown("d") then
+                p1.x = p1.x + p1.v * dt
+            end
+        end
+        -- launch ball when "k" key is pressed
+        if love.keyboard.isDown("k") and isLaunched == false then
+            isLaunched = true
+        -- speed up paddle when ball is already launched
+        elseif love.keyboard.isDown("k") and isLaunched == true then
             paddleSpeedUp = true
             if love.keyboard.isDown("a") then 
                 p1.x = p1.x - 400 * dt
-                b1.x = b1.x - 400 * dt
             elseif love.keyboard.isDown("d") then
                 p1.x = p1.x + 400 * dt
-                b1.x = b1.x + 400 * dt
             end
         else
+        -- hide outline sprite when "k" key is released
             paddleSpeedUp = false
         end
         -- freeze movement if paused
     elseif isPause == true or isFail == true then
         pauseButtonHover()
+    end
+    
+    -- collision function
+    if state == "game" then
+        hitboxBall()
+        hitboxPad()
+    else
     end
 
     -- for testing purposes
@@ -279,6 +301,9 @@ function love.update(dt)
     if state == "game" then
         score()
     end
+
+    -- checks if ball is off-screen
+    failCheck()
 
     -- open fail screen when all lives lost
     lifeFail()

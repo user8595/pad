@@ -10,6 +10,7 @@ function init()
     scoreVal = 0
     levelVal = 1
     livesVal = 2
+    isLaunched = false
 end
 
 -- reset when lose life
@@ -18,6 +19,7 @@ function initLife()
     p1.y = 420
     b1.x = 326
     b1.y = 412
+    isLaunched = false
 end
 
 -- game states
@@ -30,7 +32,6 @@ function states()
     elseif state == "game" then
         backgrounds()
         ui()
-        hitbox()
         gameTexture()
     end
 
@@ -58,19 +59,20 @@ function states()
     end
 end
 
-function debugMn()
-    -- draw debug menu if f4 key is pressed
-    if debugMenu == true then
-        debugUI()
-        -- show hitboxes when debug menu is enabled
-        if state == "game" then
-            -- pad hitbox
-            love.graphics.rectangle("line", p1.x, p1.y, p1.width, p1.height)    
-            -- ball hitbox
-            love.graphics.rectangle("line", b1.x, b1.y, b1.width, b1.height)        
-        elseif debugMenu == false then
-        end
-    else
+-- life lost code
+function lifeFail()
+    if livesVal < 0 and state == "game" then
+        livesVal = 0
+        isFail = true
+        menuButton = -1
+    end
+end
+
+-- checks if the ball is below screen
+function failCheck()
+    if b1.y > winHeight then
+        livesVal = livesVal - 1
+        initLife()
     end
 end
 
@@ -84,11 +86,19 @@ function score()
     end
 end
 
--- life lost code
-function lifeFail()
-    if livesVal <= -1 and state == "game" then
-        livesVal = 0
-        isFail = true
-        menuButton = -1
+
+function debugMn()
+    -- draw debug menu if f4 key is pressed
+    if debugMenu == true then
+        debugUI()
+        -- show hitboxes when debug menu is enabled
+        if state == "game" then
+            -- pad hitbox
+            love.graphics.rectangle("line", p1.x, p1.y, p1.width, p1.height)    
+            -- ball hitbox
+            love.graphics.rectangle("line", b1.x, b1.y, b1.width, b1.height)        
+        elseif debugMenu == false then
+        end
+    else
     end
 end
