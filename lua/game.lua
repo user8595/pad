@@ -97,7 +97,7 @@ function debugMn()
             -- pad hitbox
             love.graphics.rectangle("line", p1.x, p1.y, p1.width, p1.height)    
             -- ball hitbox
-            love.graphics.rectangle("line", b1.x, b1.y, b1.width, b1.height)        
+            love.graphics.rectangle("line", b1.x, b1.y, b1.r, b1.r)        
         elseif debugMenu == false then
         end
     else

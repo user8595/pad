@@ -7,7 +7,7 @@ function hitboxInit()
     -- paddle
     world:add(p1, p1.x, p1.y, p1.width, p1.height)
     -- ball
-    world:add(b1, b1.x, b1.y, b1.width, b1.height)
+    world:add(b1, b1.x, b1.y, b1.r, b1.r)
     -- borders
     world:add(bL, bL.x1 - 8, bL.y1, 8, bL.y2)
     world:add(bR, bR.x1, bR.y1, 8, bR.y2)

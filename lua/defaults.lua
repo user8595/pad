@@ -65,12 +65,11 @@ paddleSpeedUp = false
 b1 = {
     x = 326,
     y = 412,
+    r = 8,
     vx = 300,
     vy = 300,
     col = 0,
     len = 0,
-    width = 8,
-    height = 8
 }
 
 -- boolean for when ball is launched
