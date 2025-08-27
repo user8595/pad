@@ -12,17 +12,25 @@ function hitboxInit()
     world:add(bL, bL.x1 - 8, bL.y1, 8, bL.y2)
     world:add(bR, bR.x1, bR.y1, 8, bR.y2)
     world:add(bT, bT.x, bT.y, bT.w, bT.h)
+    -- bricks
+    --TODO: Make block disappear when hit by ball
+    world:add(bri, bri.x, bri.y, bri.w, bri.h)
 end
 
 function hitboxPad()
+    if isLaunched == false and b1.y == 436 then
+        b1.y = 413
+    else
+    end
     -- get paddle position
     local actualX, actualY, cols, len = world:move(p1, p1.x, p1.y)
 
     p1.x = actualX
     p1.y = actualY
     
-    if isLaunched == false then
+    if isLaunched == false and state == "game" then
         b1.x = actualX + 36
+    else
     end
 end
 
@@ -45,5 +53,9 @@ function hitboxBall()
             end
         end
     end
+end
+
+function blockHitbox()
+    
 end
 --TODO: Finish collision system

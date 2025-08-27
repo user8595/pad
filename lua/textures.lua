@@ -15,6 +15,8 @@ paddleOutline = love.graphics.newImage("/assets/textures/game/paddle_outline.png
 ball = love.graphics.newImage("/assets/textures/game/ball.png")
 lifeicon = love.graphics.newImage("/assets/textures/game/lifeicon.png")
 
+brick = love.graphics.newImage("/assets/textures/game/brick.png")
+
 keyA = love.graphics.newImage("/assets/textures/menu/a.png")
 keyAp = love.graphics.newImage("/assets/textures/menu/a_press.png")
 
@@ -46,6 +48,7 @@ end
 function gameTexture()
     love.graphics.draw(paddle, p1.x, p1.y)
     love.graphics.draw(ball, b1.x, b1.y)
+    love.graphics.draw(brick, bri.x, bri.y)
     -- paddle speedup outline
     if paddleSpeedUp == true then
         love.graphics.draw(paddleOutline, p1.x - 2, p1.y - 2)

@@ -244,6 +244,7 @@ end
 
 function love.update(dt)
     -- movement function
+    --TODO: Add a millisecond cooldown after player loses life, preventing user from moving pad immediantly
     if isPause == false and isFail == false and state == "game" then
         -- if ball isn't launched, move ball along paddle
         if isLaunched == false then
@@ -258,7 +259,7 @@ function love.update(dt)
         -- if ball is launched, don't move ball along paddle
         if isLaunched == true then
             b1.x = b1.x + b1.vx * dt
-            b1.y = b1.y + b1.vy * dt
+            b1.y = b1.y - b1.vy * dt
             if love.keyboard.isDown("a") then
                 p1.x = p1.x - p1.v * dt
             elseif love.keyboard.isDown("d") then

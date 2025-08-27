@@ -36,6 +36,7 @@ function states()
     end
 
     -- show fail screen
+    --TODO: Add fail cooldown ("Ready" text) to fix (?) ball randomly appearing below paddle
     if isFail == true and state == "game" then
         isPause = false
         failUI()

@@ -76,6 +76,14 @@ b1 = {
 -- boolean for when ball is launched
 isLaunched = false
 
+-- bricks
+bri = {
+    x = 151,
+    y = 40,
+    w = 32,
+    h = 11,
+}
+
 -- statistics
 -- score
 scoreVal = 0
