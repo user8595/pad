@@ -27,10 +27,6 @@ Very incomplete.
 * Add levels
 * Add textures when done (partial)
 
-## Bugs
-
-* Rarely, the ball may get stuck below the paddle (maybe because i used ai for the code i think)
-
 ## Libraries and assets used
 
 ### Libraries
