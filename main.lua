@@ -251,9 +251,11 @@ function love.update(dt)
             if love.keyboard.isDown("a") then
                 p1.x = p1.x - p1.v * dt
                 b1.x = b1.x - b1.vx * dt
+                p1.d = -1
             elseif love.keyboard.isDown("d") then
                 p1.x = p1.x + p1.v * dt
                 b1.x = b1.x + b1.vx * dt
+                p1.d = 1
             end
         end
         -- if ball is launched, don't move ball along paddle
@@ -262,8 +264,10 @@ function love.update(dt)
             b1.y = b1.y - b1.vy * dt
             if love.keyboard.isDown("a") then
                 p1.x = p1.x - p1.v * dt
+                p1.d = -1
             elseif love.keyboard.isDown("d") then
                 p1.x = p1.x + p1.v * dt
+                p1.d = 1
             end
         end
         -- launch ball when "k" key is pressed
@@ -274,22 +278,26 @@ function love.update(dt)
             paddleSpeedUp = true
             if love.keyboard.isDown("a") then 
                 p1.x = p1.x - 400 * dt
+                p1.d = -1
             elseif love.keyboard.isDown("d") then
                 p1.x = p1.x + 400 * dt
+                p1.d = 1
             end
         else
         -- hide outline sprite when "k" key is released
             paddleSpeedUp = false
+            p1.d = p1.d
         end
         -- freeze movement if paused
     elseif isPause == true or isFail == true then
         pauseButtonHover()
     end
     
-    -- collision function
+    -- collision & game function
     if state == "game" then
         hitboxBall()
         hitboxPad()
+        extraLife()
     else
     end
 

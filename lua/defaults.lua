@@ -51,6 +51,8 @@ p1 = {
     x = 290,
     y = 420,
     v = 600,
+    -- direction, 1 = right, -1 = left
+    d = 1,
     col = 0,
     len = 0,
     width = 64,

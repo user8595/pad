@@ -1,10 +1,13 @@
 require("lua.defaults")
 require("lua.textures")
-
+if state == "menu" then
+    require("lua.levels")
+end
 -- reset stats
 function init()
     p1.x = 290
     p1.y = 420
+    p1.d = 1
     b1.x = 326
     b1.y = 412
     scoreVal = 0
@@ -17,6 +20,7 @@ end
 function initLife()
     p1.x = 290
     p1.y = 420
+    p1.d = 1
     b1.x = 326
     b1.y = 412
     isLaunched = false
@@ -69,6 +73,13 @@ function lifeFail()
     end
 end
 
+-- extra life functionality
+function extraLife()
+    if scoreVal > 0 and scoreVal % 25000 == 0 then
+        livesVal = livesVal + 1
+    end
+end
+
 -- checks if the ball is below screen
 function failCheck()
     if b1.y > winHeight then
@@ -87,6 +98,15 @@ function score()
     end
 end
 
+function getPadDir()
+    local yDirPos = 130
+    if isAbout == true or isFail == true or isHelp == true or isPause == true then
+        yDirPos = 145
+    else
+        yDirPos = 130
+    end
+    love.graphics.print("d: " .. p1.d, subFont, 10, yDirPos)
+end
 
 function debugMn()
     -- draw debug menu if f4 key is pressed

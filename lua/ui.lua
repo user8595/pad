@@ -1,6 +1,8 @@
 require("lua.defaults")
 require("lua.textures")
+require("lua.collision")
 local cron = require("lib.cron")
+
 -- default popup variables
 local popupW = winWidth / 2
 local popupH = winHeight / 2
@@ -58,6 +60,12 @@ function help()
     love.graphics.print("Move paddle", textFont, popupW - 140, popupH - 53)
     love.graphics.print("Speed up paddle\nmovement", textFont, popupW - 140, popupH + 23)
     love.graphics.print("Pause game", textFont, popupW - 140, popupH + 120)
+    
+    love.graphics.draw(lifeicon, popupW + 107, popupH - 105, 0, 0.75, 0.75)
+    love.graphics.printf("Extra Life\nevery 25000", textFont, popupW - 200, popupH - 88, 350, "right")
+    love.graphics.draw(brick, popupW + 117, popupH - 48)
+    love.graphics.printf("100", textFont, popupW - 200, popupH - 32, 350, "right")
+
     love.graphics.print({uiSubText, "ESC to close"}, subFont, popupW - 40, popupH + 167)
 end
 
@@ -226,28 +234,24 @@ function menuButtonHover()
     -- play button
     if x >= 303 and x <= 341 and y >= 240 and y <= 264 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor1 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- help button
     if x >= 303 and x <= 340 and y >= 266 and y <= 288 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor2 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
     end
     -- about button
     if x >= 295 and x <= 348 and y >= 292 and y <= 316 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor3 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor3 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
     if x >= 277 and x <= 368 and y >= 318 and y <= 342 and state == "menu" and isAbout == false and isPause == false and isHelp == false then
         buttonColor4 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor4 = {0.75, 0.75, 0.75, 1}
     end
@@ -259,14 +263,12 @@ function failButtonHover()
     -- retry button
     if x >= popupButtonX1 and x <= popupButtonX1 + 52 and y >= popupButtonY1 and y <= popupButtonY1 + 22 and isFail == true then
         buttonColor1 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
     if x >= popupButtonX2 and x <= popupButtonX2 + 34 and y >= popupButtonY2 and y <= popupButtonY2 + 22 and isFail == true then
         buttonColor2 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
     end
@@ -278,21 +280,18 @@ function pauseButtonHover()
     -- resume button
     if x >= pauseX1 and x <= pauseX1 + 72 and y >= pauseY1 and y <= pauseY1 + 17 and isPause == true then
         buttonColor1 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor1 = {0.75, 0.75, 0.75, 1}
     end
     -- restart button
     if x >= pauseX2 and x <= pauseX2 + 72 and y >= pauseY2 and y <= pauseY2 + 17 and isPause == true then
         buttonColor2 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor2 = {0.75, 0.75, 0.75, 1}
     end
     -- exit button
     if x >= pauseX3 and x <= pauseX3 + 34 and y >= pauseY3 and y <= pauseY3 + 19 and isPause == true then
         buttonColor3 = {1, 1, 1, 1}
-        menuButton = -1
     else
         buttonColor3 = {0.75, 0.75, 0.75, 1}
     end
@@ -325,4 +324,10 @@ function debugUI()
     end
     -- current highlighted button
     love.graphics.print({uiText, "menuButton: " .. menuButton}, subFont, 10, 100)
+    
+    -- collision item count
+    getCols()
+
+    -- pad direction
+    getPadDir()
 end

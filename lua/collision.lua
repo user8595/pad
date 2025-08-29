@@ -1,9 +1,8 @@
 require("lua.defaults")
 local bump = require("lib.bump")
-local world
+local world = bump.newWorld(64)
 
 function hitboxInit()
-    world = bump.newWorld(64)
     -- paddle
     world:add(p1, p1.x, p1.y, p1.width, p1.height)
     -- ball
@@ -15,6 +14,17 @@ function hitboxInit()
     -- bricks
     --TODO: Make block disappear when hit by ball
     world:add(bri, bri.x, bri.y, bri.w, bri.h)
+end
+
+function getCols()
+    local yColPos
+    if isPause == true or isAbout == true or isFail == true or isHelp == true then
+        yColPos = 130
+    else
+        yColPos = 115
+    end
+    local count = world:countItems()
+    love.graphics.print("cols: " .. count, subFont, 10, yColPos)
 end
 
 function hitboxPad()
@@ -56,6 +66,9 @@ function hitboxBall()
 end
 
 function blockHitbox()
-    
+    if len > 0 then
+        for i = 1, len do
+        end
+    end
 end
 --TODO: Finish collision system
