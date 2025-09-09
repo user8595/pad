@@ -69,8 +69,8 @@ paddleSpeedUp = false
 
 -- ball
 b1 = {
-    x = 340,
-    y = 412,
+    x = 330,
+    y = 414,
     r = 4,
     vx = 350,
     vy = 350,

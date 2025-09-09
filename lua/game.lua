@@ -9,8 +9,8 @@ function init()
     p1.x = 290
     p1.y = 420
     p1.d = 1
-    b1.x = 340
-    b1.y = 412
+    b1.x = 330
+    b1.y = 414
     scoreVal = 0
     levelVal = 1
     livesVal = 2
@@ -22,6 +22,8 @@ end
 function initLife()
     p1.x = 290
     p1.y = 420
+    b1.x = 330
+    b1.y = 414
     p1.d = 1
     isLaunched = false
 end
@@ -76,9 +78,8 @@ function moveFunction(dt)
             b1.x = b1.x + b1.vx * dt
             p1.d = 1
         end
-    end
     -- if ball is launched, don't move ball along paddle
-    if isLaunched == true and isLiveLost == false then
+    elseif isLaunched == true and isLiveLost == false then
         b1.x = b1.x + b1.vx * dt
         b1.y = b1.y - b1.vy * dt
         if love.keyboard.isDown("a") then
@@ -137,9 +138,9 @@ end
 -- checks if the ball is below screen
 function failCheck()
     if b1.y > winHeight then
-        livesVal = livesVal - 1
-        isLiveLost = true
         initLife()
+        isLiveLost = true
+        livesVal = livesVal - 1
     end
 end
 

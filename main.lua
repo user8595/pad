@@ -252,8 +252,7 @@ function love.update(dt)
     
     -- collision & game function
     if state == "game" then
-        hitboxPad()
-        hitboxBall()
+        hitbox()
         extraLife()
     else
     end

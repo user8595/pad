@@ -27,11 +27,7 @@ function getCols()
     love.graphics.print("cols: " .. count, subFont, 10, yColPos)
 end
 
-function hitboxPad()
-    if isLaunched == false and b1.y == 436 then
-        b1.y = 413
-    else
-    end
+function hitbox()
     -- get paddle position
     local actualX, actualY, cols, len = world:move(p1, p1.x, p1.y)
 
@@ -39,20 +35,25 @@ function hitboxPad()
     p1.y = actualY
     
     if isLaunched == false and state == "game" then
-        b1.x = actualX + 36
+        b1.x = actualX + 40
     else
     end
-end
 
-function hitboxBall()
-    local actualX, actualY, cols, len = world:move(b1, b1.x, b1.y)
+    local actualBallX, actualBallY, cols, len = world:move(b1, b1.x, b1.y)
     
-    b1.x = actualX
-    b1.y = actualY
+    b1.x = actualBallX
+    b1.y = actualBallY
 
     if len > 0 then
         for i = 1, len do
             local col = cols[i]
+            local other = col.other
+            
+            -- tempoary solution
+            if other.type == "paddle" then
+                b1.vy = -math.abs(b1.vy)
+                b1.y = 414
+            end
 
             if col.normal.x ~= 0 then
                 b1.vx = -b1.vx
