@@ -330,4 +330,7 @@ function debugUI()
 
     -- pad direction
     getPadDir()
+
+    -- get cooldown boolean
+    getCool()
 end

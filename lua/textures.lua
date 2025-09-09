@@ -47,7 +47,7 @@ end
 -- game texture
 function gameTexture()
     love.graphics.draw(paddle, p1.x, p1.y)
-    love.graphics.draw(ball, b1.x, b1.y)
+    love.graphics.draw(ball, b1.x - 2, b1.y - 2)
     love.graphics.draw(brick, bri.x, bri.y)
     -- paddle speedup outline
     if paddleSpeedUp == true then

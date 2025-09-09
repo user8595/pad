@@ -26,7 +26,8 @@ bL = {
     x1 = 151,
     y1 = 0,
     x2 = 151,
-    y2 = winHeight
+    y2 = winHeight,
+    type = "borL"
 }
 
 -- border right
@@ -34,7 +35,8 @@ bR = {
     x1 = 489,
     y1 = 0,
     x2 = 489,
-    y2 = winHeight
+    y2 = winHeight,
+    type = "borR"
 }
 
 -- border top (hidden)
@@ -43,7 +45,8 @@ bT = {
     y = -2,
     -- border right x1 - border left x1
     w = bR.x1 - bL.x1,
-    h = 2
+    h = 2,
+    type = "borT"
 }
 
 -- pad
@@ -56,7 +59,8 @@ p1 = {
     col = 0,
     len = 0,
     width = 64,
-    height = 16
+    height = 16,
+    type = "paddle"
 }
 
 -- paddle speed up texture boolean
@@ -65,13 +69,14 @@ paddleSpeedUp = false
 
 -- ball
 b1 = {
-    x = 326,
+    x = 340,
     y = 412,
-    r = 8,
-    vx = 300,
-    vy = 300,
+    r = 4,
+    vx = 350,
+    vy = 350,
     col = 0,
     len = 0,
+    type = "ball"
 }
 
 -- boolean for when ball is launched
@@ -83,6 +88,7 @@ bri = {
     y = 40,
     w = 32,
     h = 11,
+    type = "brick"
 }
 
 -- statistics
@@ -96,6 +102,12 @@ levelVal = 1
 livesVal = 2
 -- highscores table for save function
 highScores = {}
+
+-- fail boolean
+isLiveLost = false
+
+-- life lost timer
+lostTimer = 0
 
 -- color
 uiSubText = {

@@ -243,51 +243,8 @@ function love.mousepressed(x, y, button)
 end
 
 function love.update(dt)
-    -- movement function
-    --TODO: Add a millisecond cooldown after player loses life, preventing user from moving pad immediantly
     if isPause == false and isFail == false and state == "game" then
-        -- if ball isn't launched, move ball along paddle
-        if isLaunched == false then
-            if love.keyboard.isDown("a") then
-                p1.x = p1.x - p1.v * dt
-                b1.x = b1.x - b1.vx * dt
-                p1.d = -1
-            elseif love.keyboard.isDown("d") then
-                p1.x = p1.x + p1.v * dt
-                b1.x = b1.x + b1.vx * dt
-                p1.d = 1
-            end
-        end
-        -- if ball is launched, don't move ball along paddle
-        if isLaunched == true then
-            b1.x = b1.x + b1.vx * dt
-            b1.y = b1.y - b1.vy * dt
-            if love.keyboard.isDown("a") then
-                p1.x = p1.x - p1.v * dt
-                p1.d = -1
-            elseif love.keyboard.isDown("d") then
-                p1.x = p1.x + p1.v * dt
-                p1.d = 1
-            end
-        end
-        -- launch ball when "k" key is pressed
-        if love.keyboard.isDown("k") and isLaunched == false then
-            isLaunched = true
-        -- speed up paddle when ball is already launched
-        elseif love.keyboard.isDown("k") and isLaunched == true then
-            paddleSpeedUp = true
-            if love.keyboard.isDown("a") then 
-                p1.x = p1.x - 400 * dt
-                p1.d = -1
-            elseif love.keyboard.isDown("d") then
-                p1.x = p1.x + 400 * dt
-                p1.d = 1
-            end
-        else
-        -- hide outline sprite when "k" key is released
-            paddleSpeedUp = false
-            p1.d = p1.d
-        end
+        moveFunction(dt)
         -- freeze movement if paused
     elseif isPause == true or isFail == true then
         pauseButtonHover()
@@ -295,8 +252,8 @@ function love.update(dt)
     
     -- collision & game function
     if state == "game" then
-        hitboxBall()
         hitboxPad()
+        hitboxBall()
         extraLife()
     else
     end

@@ -3,17 +3,19 @@ require("lua.textures")
 if state == "menu" then
     require("lua.levels")
 end
+
 -- reset stats
 function init()
     p1.x = 290
     p1.y = 420
     p1.d = 1
-    b1.x = 326
+    b1.x = 340
     b1.y = 412
     scoreVal = 0
     levelVal = 1
     livesVal = 2
     isLaunched = false
+    isLiveLost = false
 end
 
 -- reset when lose life
@@ -21,8 +23,6 @@ function initLife()
     p1.x = 290
     p1.y = 420
     p1.d = 1
-    b1.x = 326
-    b1.y = 412
     isLaunched = false
 end
 
@@ -40,7 +40,6 @@ function states()
     end
 
     -- show fail screen
-    --TODO: Add fail cooldown ("Ready" text) to fix (?) ball randomly appearing below paddle
     if isFail == true and state == "game" then
         isPause = false
         failUI()
@@ -60,6 +59,61 @@ function states()
         help()
     elseif isAbout == true then
         about()
+    else
+    end
+end
+
+-- paddle and ball movement function
+function moveFunction(dt)
+    -- if ball isn't launched, move ball along paddle
+    if isLaunched == false then
+        if love.keyboard.isDown("a") then
+            p1.x = p1.x - p1.v * dt
+            b1.x = b1.x - b1.vx * dt
+            p1.d = -1
+        elseif love.keyboard.isDown("d") then
+            p1.x = p1.x + p1.v * dt
+            b1.x = b1.x + b1.vx * dt
+            p1.d = 1
+        end
+    end
+    -- if ball is launched, don't move ball along paddle
+    if isLaunched == true and isLiveLost == false then
+        b1.x = b1.x + b1.vx * dt
+        b1.y = b1.y - b1.vy * dt
+        if love.keyboard.isDown("a") then
+            p1.x = p1.x - p1.v * dt
+            p1.d = -1
+        elseif love.keyboard.isDown("d") then
+            p1.x = p1.x + p1.v * dt
+            p1.d = 1
+        end
+    end
+    -- launch ball when "k" key is pressed
+    if love.keyboard.isDown("k") and isLaunched == false and isLiveLost == false then
+        isLaunched = true
+    -- speed up paddle when ball is already launched
+    elseif love.keyboard.isDown("k") and isLaunched == true and isLiveLost == false then
+        paddleSpeedUp = true
+        if love.keyboard.isDown("a") then 
+            p1.x = p1.x - 400 * dt
+            p1.d = -1
+        elseif love.keyboard.isDown("d") then
+            p1.x = p1.x + 400 * dt
+            p1.d = 1
+        end
+    else
+    -- hide outline sprite when "k" key is released
+        paddleSpeedUp = false
+        p1.d = p1.d
+    end
+    if isLiveLost == true then
+        if lostTimer < 1.5 then
+            lostTimer = lostTimer + dt
+        elseif lostTimer >= 1.5 then
+            isLiveLost = false
+            lostTimer = 0
+        end
     else
     end
 end
@@ -84,6 +138,7 @@ end
 function failCheck()
     if b1.y > winHeight then
         livesVal = livesVal - 1
+        isLiveLost = true
         initLife()
     end
 end
@@ -106,6 +161,22 @@ function getPadDir()
         yDirPos = 130
     end
     love.graphics.print("d: " .. p1.d, subFont, 10, yDirPos)
+end
+
+function getCool()
+    local yDirPos = 145
+    local lifeBoolean
+    if isAbout == true or isFail == true or isHelp == true or isPause == true then
+        yDirPos = 160
+    else
+        yDirPos = 145
+    end
+    if isLiveLost == true then
+        lifeBoolean = "true "
+    else
+        lifeBoolean = "false "
+    end
+    love.graphics.print(lifeBoolean .. lostTimer, subFont, 10, yDirPos)
 end
 
 function debugMn()
